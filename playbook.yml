@@ -1,0 +1,55 @@
+- hosts: cls-1
+
+  tasks:
+  - assessment:
+  #- debug: msg={{assessment}}
+  - local_action: template src=./dumpall.j2 dest=./data/{{ ansible_hostname }}.yml
+
+- hosts: rhel7-1
+
+  tasks:
+  - name: include variable from source machine
+    local_action: include_vars file=./data/cls-1.yml name=assessment
+
+  - name: create missing group on target
+    group: gid="{{item.gid}}" name="{{item.group_name}}" state=present
+    with_items: "{{assessment.groups}}"
+
+  - name: create missing user on target
+    user: uid="{{item.uid}}"  \
+          comment="{{item.description}}" \
+          home="{{item.home}}" \
+          shell="{{item.shell}}" \
+          name="{{item.username}}" \
+          groups="{{item.username}}" \
+          state=present
+    with_items: "{{assessment.users}}"
+
+  - name: set password for missing user on target
+    user: name="{{item.username}}" password="{{item.password}}"\
+          state=present
+    with_items: "{{assessment.credentials}}"
+    when: not "!!"  in item.password
+
+  - name: create sudoers on target
+    lineinfile: dest=/etc/sudoers line="{{item}}" state=present
+    with_items: "{{assessment.sudoers}}"
+
+  - name: create security limits on target
+    lineinfile: dest=/etc/security/limits.conf line="{{item}}" state=present
+    with_items: "{{assessment.limits}}"
+
+  - name: create sysctl tuning on target
+    lineinfile: dest=/etc/sysctl.conf line="{{item}}" state=present
+    with_items: "{{assessment.sysctl}}"
+    register: sysctl
+
+  - name: apply changes on sysctl
+    command: sysctl -p
+    when: sysctl|success
+
+  - name: copy and comment fstab on target machine
+    lineinfile: dest=/etc/fstab line="###{{item}}" state=present
+    with_items: "{{assessment.fstab}}"
+    when: '("xfs" in item or "ext" in item or "nfs" in item)
+                and (not "root" in item and not "boot" in item)'

@@ -1,0 +1,888 @@
+credentials:
+- {expires: '', inact_age: '', last_pwd_change: '17039', max_age: '', min_age: '',
+  password: '!!', username: abrt, warn_age: ''}
+- {expires: '', inact_age: '', last_pwd_change: '17039', max_age: '', min_age: '',
+  password: '!!', username: saslauth, warn_age: ''}
+- {expires: '', inact_age: '', last_pwd_change: '17039', max_age: '', min_age: '',
+  password: '!!', username: nfsnobody, warn_age: ''}
+- {expires: '', inact_age: '', last_pwd_change: '17039', max_age: '', min_age: '',
+  password: '!!', username: ricci, warn_age: ''}
+- {expires: '', inact_age: '', last_pwd_change: '17039', max_age: '', min_age: '',
+  password: '!!', username: luci, warn_age: ''}
+- {expires: '', inact_age: '', last_pwd_change: '17077', max_age: '', min_age: '',
+  password: $6$er4nAhAL$K5hPjUftMPoEL5p3zd1oBpBT/f.hT3EqJ7y8tAhNCwPFRmAE5d3wA5SIpampY4pfkocatpMTyuERXpU0SShs8/,
+  username: hacluster, warn_age: ''}
+crontab: []
+fstab: [/dev/mapper/VolGroup-lv_root /                       ext4    defaults        1
+    1, UUID=14407866-afcc-4106-a8a5-ae3b9e040707 /boot                   ext4    defaults        1
+    2, /dev/mapper/VolGroup-lv_swap swap                    swap    defaults        0
+    0, tmpfs                   /dev/shm                tmpfs   defaults        0 0,
+  'devpts                  /dev/pts                devpts  gid=5,mode=620  0 0', sysfs                   /sys                    sysfs   defaults        0
+    0, proc                    /proc                   proc    defaults        0 0]
+groups:
+- gid: 100
+  group_name: users
+  userlist: ['']
+- gid: 173
+  group_name: abrt
+  userlist: [hacluster]
+- gid: 65534
+  group_name: nfsnobody
+  userlist: ['']
+- gid: 499
+  group_name: cgred
+  userlist: ['']
+- gid: 140
+  group_name: ricci
+  userlist: ['']
+- gid: 141
+  group_name: luci
+  userlist: ['']
+- gid: 156
+  group_name: stapusr
+  userlist: ['']
+- gid: 157
+  group_name: stapsys
+  userlist: ['']
+- gid: 158
+  group_name: stapdev
+  userlist: ['']
+- gid: 189
+  group_name: haclient
+  userlist: ['']
+limits: [ftp             hard    nproc           0]
+packages:
+- {name: gfs2-utils, rel: 78.el6, ver: 3.0.12.1}
+- {name: usermode, rel: 3.el6, ver: '1.102'}
+- {name: tmpwatch, rel: 6.el6, ver: 2.9.16}
+- {name: filesystem, rel: 3.el6, ver: 2.4.30}
+- {name: cyrus-sasl, rel: 15.el6_6.2, ver: 2.1.23}
+- {name: iw, rel: 1.el6, ver: '4.1'}
+- {name: tzdata-java, rel: 1.el6, ver: 2016c}
+- {name: curl, rel: 52.el6, ver: 7.19.7}
+- {name: xml-common, rel: 33.el6, ver: 0.6.3}
+- {name: nfs-utils, rel: 70.el6, ver: 1.2.3}
+- {name: satyr, rel: 2.el6, ver: '0.16'}
+- {name: dejavu-fonts-common, rel: 1.el6, ver: '2.33'}
+- {name: man, rel: 32.el6, ver: 1.6f}
+- {name: ncurses-base, rel: 4.20090207.el6, ver: '5.7'}
+- {name: postfix, rel: 6.el6_7.1, ver: 2.6.6}
+- {name: portreserve, rel: 11.el6, ver: 0.0.4}
+- {name: ncurses-libs, rel: 4.20090207.el6, ver: '5.7'}
+- {name: openssh, rel: 117.el6, ver: 5.3p1}
+- {name: ed, rel: 3.3.el6, ver: '1.1'}
+- {name: zlib, rel: 29.el6, ver: 1.2.3}
+- {name: cifs-utils, rel: 20.el6, ver: 4.8.1}
+- {name: upstart, rel: 16.el6, ver: 0.6.5}
+- {name: info, rel: 8.el6, ver: 4.13a}
+- {name: librdmacm, rel: 0.el6, ver: 1.0.21}
+- {name: mesa-private-llvm, rel: 1.el6, ver: 3.6.2}
+- {name: nss-util, rel: 2.el6, ver: 3.21.0}
+- {name: modcluster, rel: 35.el6, ver: 0.16.2}
+- {name: dash, rel: 4.el6, ver: 0.5.5.1}
+- {name: freetype, rel: 17.el6, ver: 2.3.11}
+- {name: dmraid-events, rel: 11.el6, ver: 1.0.0.rc16}
+- {name: perl-ExtUtils-ParseXS, rel: 141.el6_7.1, ver: 2.2003.0}
+- {name: libpng, rel: 2.el6_7, ver: 1.2.49}
+- {name: sssd-ipa, rel: 22.el6, ver: 1.13.3}
+- {name: perl-IPC-Cmd, rel: 141.el6_7.1, ver: '0.56'}
+- {name: libsepol, rel: 4.el6, ver: 2.0.41}
+- {name: sssd-proxy, rel: 22.el6, ver: 1.13.3}
+- {name: perl-Test-Simple, rel: 141.el6_7.1, ver: '0.92'}
+- {name: db4, rel: 20.el6_7, ver: 4.7.25}
+- {name: foomatic-db, rel: 7.20091126.el6, ver: '4.0'}
+- {name: perl-CPAN, rel: 141.el6_7.1, ver: '1.9402'}
+- {name: grep, rel: 3.el6_7.1, ver: '2.20'}
+- {name: cryptsetup-luks-libs, rel: 11.el6, ver: 1.2.0}
+- {name: mingetty, rel: 5.el6, ver: '1.08'}
+- {name: libtar, rel: 17.el6_4.1, ver: 1.2.11}
+- {name: hal, rel: 14.el6, ver: 0.5.14}
+- {name: hdparm, rel: 4.el6, ver: '9.43'}
+- {name: tcp_wrappers-libs, rel: 58.el6, ver: '7.6'}
+- {name: abrt-tui, rel: 40.el6, ver: 2.0.8}
+- {name: sgpio, rel: 5.el6, ver: 1.2.0.10}
+- {name: libbasicobjects, rel: 11.el6, ver: 0.1.1}
+- {name: rhn-check, rel: 38.el6, ver: 1.0.0.1}
+- {name: dbus, rel: 8.el6_6, ver: 1.2.24}
+- {name: libnl, rel: 2.el6, ver: 1.1.4}
+- {name: python-iwlib, rel: 1.2.el6, ver: '0.1'}
+- {name: polkit, rel: 11.el6, ver: '0.96'}
+- {name: file-libs, rel: 30.el6, ver: '5.04'}
+- {name: MAKEDEV, rel: 6.el6, ver: '3.24'}
+- {name: libogg, rel: 2.1.el6, ver: 1.1.4}
+- {name: cronie-anacron, rel: 15.el6_7.1, ver: 1.4.4}
+- {name: python, rel: 64.el6, ver: 2.6.6}
+- {name: which, rel: 6.el6, ver: '2.19'}
+- {name: redhat-lsb-printing, rel: 7.el6, ver: '4.0'}
+- {name: pyOpenSSL, rel: 2.el6, ver: 0.13.1}
+- {name: pkgconfig, rel: 9.1.el6, ver: '0.23'}
+- {name: ypbind, rel: 33.el6, ver: 1.20.4}
+- {name: rpm-python, rel: 55.el6, ver: 4.8.0}
+- {name: bzip2, rel: 7.el6_0, ver: 1.0.5}
+- {name: iptables-ipv6, rel: 16.el6, ver: 1.4.7}
+- {name: dbus-python, rel: 6.1.el6, ver: 0.83.0}
+- {name: libtasn1, rel: 6.el6_5, ver: '2.3'}
+- {name: kernel-firmware, rel: 642.el6, ver: 2.6.32}
+- {name: python-paste-deploy, rel: 2.1.el6, ver: 1.3.3}
+- {name: cyrus-sasl-gssapi, rel: 15.el6_6.2, ver: 2.1.23}
+- {name: irqbalance, rel: 8.el6, ver: 1.0.7}
+- {name: pygobject2, rel: 5.el6, ver: 2.20.0}
+- {name: lua, rel: 4.1.el6, ver: 5.1.4}
+- {name: system-config-firewall-tui, rel: 7.2.el6_6, ver: 1.2.27}
+- {name: python-nose, rel: 3.1.el6, ver: 0.10.4}
+- {name: numactl, rel: 2.el6, ver: 2.0.9}
+- {name: system-config-network-tui, rel: 4.el6, ver: 1.6.0.el6.3}
+- {name: python-argparse, rel: 2.1.el6, ver: 1.2.1}
+- {name: gdbm, rel: 39.el6, ver: 1.8.0}
+- {name: openssh-server, rel: 117.el6, ver: 5.3p1}
+- {name: python-tempita, rel: 2.el6, ver: '0.4'}
+- {name: perl-version, rel: 141.el6_7.1, ver: '0.77'}
+- {name: setuptool, rel: 4.el6, ver: 1.19.9}
+- {name: numpy, rel: 9.el6, ver: 1.4.1}
+- {name: perl-Params-Check, rel: 141.el6_7.1, ver: '0.26'}
+- {name: iwl100-firmware, rel: 1.el6, ver: 39.31.5.1}
+- {name: redhat-support-lib-python, rel: 4.el6, ver: 0.9.7}
+- {name: perl-Log-Message, rel: 141.el6_7.1, ver: '0.02'}
+- {name: aic94xx-firmware, rel: 2.el6, ver: '30'}
+- {name: sos, rel: 40.el6, ver: '3.2'}
+- {name: libmng, rel: 4.1.el6, ver: 1.0.10}
+- {name: rng-tools, rel: 2.el6_7, ver: '5'}
+- {name: python-ldap, rel: 1.el6, ver: 2.3.10}
+- {name: perl-Archive-Tar, rel: 141.el6_7.1, ver: '1.58'}
+- {name: smartmontools, rel: 1.el6, ver: '5.43'}
+- {name: rhn-client-tools, rel: 38.el6, ver: 1.0.0.1}
+- {name: perl-CGI, rel: 141.el6_7.1, ver: '3.51'}
+- {name: java-1.6.0-openjdk, rel: 1.13.10.4.el6, ver: 1.6.0.38}
+- {name: python-crypto, rel: 22.el6, ver: 2.0.1}
+- {name: perl-Module-Loaded, rel: 141.el6_7.1, ver: '0.02'}
+- {name: cas, rel: 1.el6.1, ver: '0.15'}
+- {name: python-markupsafe, rel: 4.el6, ver: 0.9.2}
+- {name: p11-kit, rel: 2.el6_5.2, ver: 0.18.5}
+- {name: gdb, rel: 90.el6, ver: '7.2'}
+- {name: python-sssdconfig, rel: 22.el6, ver: 1.13.3}
+- {name: dbus-glib, rel: 6.el6_4, ver: '0.86'}
+- {name: libhugetlbfs-utils, rel: 2.el6, ver: '2.16'}
+- {name: pytz, rel: 2.el6, ver: 2010h}
+- {name: libxslt, rel: 2.el6_3.1, ver: 1.1.26}
+- {name: systemtap-runtime, rel: 4.el6, ver: '2.9'}
+- {name: libproxy-python, rel: 10.el6, ver: 0.3.0}
+- {name: vim-minimal, rel: 5.el6, ver: 7.4.629}
+- {name: hunspell-en, rel: 7.1.el6, ver: '0.20090216'}
+- {name: libreport, rel: 32.el6, ver: 2.0.9}
+- {name: bc, rel: 1.el6, ver: 1.06.95}
+- {name: perl-XML-Grove, rel: 40.el6, ver: 0.46alpha}
+- {name: libreport-plugin-kerneloops, rel: 32.el6, ver: 2.0.9}
+- {name: m4, rel: 5.el6, ver: 1.4.13}
+- {name: pinfo, rel: 12.el6, ver: 0.6.9}
+- {name: abrt-python, rel: 40.el6, ver: 2.0.8}
+- {name: libss, rel: 22.el6, ver: 1.41.12}
+- {name: ledmon, rel: 1.el6, ver: '0.79'}
+- {name: abrt-addon-python, rel: 40.el6, ver: 2.0.8}
+- {name: groff, rel: 21.el6, ver: 1.18.1.4}
+- {name: psacct, rel: 63.el6_3.3, ver: 6.3.2}
+- {name: python-six, rel: 2.el6, ver: 1.9.0}
+- {name: cracklib, rel: 4.el6, ver: 2.8.16}
+- {name: latencytop-tui, rel: 9.el6, ver: '0.5'}
+- {name: python-transaction, rel: 1.el6, ver: 1.0.1}
+- {name: fontconfig, rel: 5.el6, ver: 2.8.0}
+- {name: unzip, rel: 4.el6, ver: '6.0'}
+- {name: python-repoze-what, rel: 6.el6, ver: 1.0.8}
+- {name: pciutils, rel: 4.el6, ver: 3.1.10}
+- {name: rsync, rel: 12.el6, ver: 3.0.6}
+- {name: python-backports-ssl_match_hostname, rel: 2.el6, ver: 3.4.0.2}
+- {name: libedit, rel: 4.20080712cvs.1.el6, ver: '2.11'}
+- {name: scl-utils, rel: 27.el6_6, ver: '20120927'}
+- {name: python-markdown, rel: 3.1.el6, ver: 2.0.1}
+- {name: crash, rel: 6.el6, ver: 7.1.0}
+- {name: traceroute, rel: 2.el6, ver: 2.0.14}
+- {name: python-repoze-what-pylons, rel: 4.el6, ver: '1.0'}
+- {name: dmidecode, rel: 7.el6, ver: '2.12'}
+- {name: dosfstools, rel: 4.el6, ver: 3.0.9}
+- {name: python-prioritized-methods, rel: 5.1.el6, ver: 0.2.1}
+- {name: poppler-utils, rel: 10.el6, ver: 0.12.4}
+- {name: eject, rel: 17.el6, ver: 2.1.5}
+- {name: c-ares, rel: 3.el6, ver: 1.10.0}
+- {name: libpciaccess, rel: 1.el6, ver: 0.13.4}
+- {name: crash-trace-command, rel: 5.el6, ver: '1.0'}
+- {name: libpath_utils, rel: 11.el6, ver: 0.2.1}
+- {name: cvs, rel: 16.el6, ver: 1.11.23}
+- {name: iwl5000-firmware, rel: 1.el6_1.1, ver: 8.83.5.1_1}
+- {name: libxcb, rel: 2.el6, ver: '1.11'}
+- {name: nss-tools, rel: 8.el6, ver: 3.21.0}
+- {name: xorg-x11-drv-ati-firmware, rel: 2.el6, ver: 7.6.1}
+- {name: cairo, rel: 6.el6_6, ver: 1.8.8}
+- {name: sgml-common, rel: 33.el6, ver: 0.6.3}
+- {name: iwl4965-firmware, rel: 2.1.el6, ver: 228.61.2.24}
+- {name: libXtst, rel: 2.1.el6, ver: 1.2.2}
+- {name: urw-fonts, rel: 11.el6, ver: '2.4'}
+- {name: rt73usb-firmware, rel: 7.el6, ver: '1.8'}
+- {name: pango, rel: 11.el6, ver: 1.28.1}
+- {name: grubby, rel: 7.el6, ver: 7.0.15}
+- {name: rootfiles, rel: 6.1.el6, ver: '8.1'}
+- {name: libXdamage, rel: 4.el6, ver: 1.1.3}
+- {name: ORBit2, rel: 5.el6, ver: 2.14.17}
+- {name: gpg-pubkey, rel: 4ae0493b, ver: fd431d51}
+- {name: libXt, rel: 6.1.el6, ver: 1.1.4}
+- {name: p11-kit-trust, rel: 2.el6_5.2, ver: 0.18.5}
+- {name: libtool-ltdl, rel: 15.5.el6, ver: 2.2.6}
+- {name: fprintd, rel: 22.git04fd09cfa.el6, ver: '0.1'}
+- {name: libssh2, rel: 2.el6_7.1, ver: 1.4.2}
+- {name: python-clufter, rel: 1.el6, ver: 0.56.2}
+- {name: libXv, rel: 2.1.el6, ver: 1.0.9}
+- {name: bind-utils, rel: 0.47.rc1.el6, ver: 9.8.2}
+- {name: ruby-irb, rel: 4.el6_6, ver: 1.8.7.374}
+- {name: liboil, rel: 4.1.el6, ver: 0.3.16}
+- {name: cyrus-sasl-md5, rel: 15.el6_6.2, ver: 2.1.23}
+- {name: pacemaker-cli, rel: 8.el6_8.1, ver: 1.1.14}
+- {name: kbd-misc, rel: 11.el6, ver: '1.15'}
+- {name: perl-Time-Piece, rel: 141.el6_7.1, ver: '1.15'}
+- {name: device-mapper-libs, rel: 7.el6_8.1, ver: 1.02.117}
+- {name: iproute, rel: 54.el6, ver: 2.6.32}
+- {name: perl-Parse-CPAN-Meta, rel: 141.el6_7.1, ver: '1.40'}
+- {name: lvm2-libs, rel: 7.el6_8.1, ver: 2.02.143}
+- {name: util-linux-ng, rel: 12.24.el6, ver: 2.17.2}
+- {name: perl-XML-Parser, rel: 7.el6, ver: '2.36'}
+- {name: libgcc, rel: 17.el6, ver: 4.4.7}
+- {name: gdbm-devel, rel: 39.el6, ver: 1.8.0}
+- {name: tzdata, rel: 1.el6, ver: 2016c}
+- {name: elfutils, rel: 2.el6, ver: '0.164'}
+- {name: mesa-dri-filesystem, rel: 4.el6, ver: 11.0.7}
+- {name: libsndfile, rel: 5.el6, ver: 1.0.20}
+- {name: latencytop-common, rel: 9.el6, ver: '0.5'}
+- {name: tcp_wrappers, rel: 58.el6, ver: '7.6'}
+- {name: mailcap, rel: 2.el6, ver: 2.1.31}
+- {name: libcurl, rel: 52.el6, ver: 7.19.7}
+- {name: poppler-data, rel: 1.el6, ver: 0.4.0}
+- {name: rpm-libs, rel: 55.el6, ver: 4.8.0}
+- {name: iso-codes, rel: 2.el6, ver: '3.16'}
+- {name: openldap, rel: 12.el6, ver: 2.4.40}
+- {name: fontpackages-filesystem, rel: 1.1.el6, ver: '1.41'}
+- {name: xmlrpc-c-client, rel: 1210.1840.el6, ver: 1.16.24}
+- {name: vim-filesystem, rel: 5.el6, ver: 7.4.629}
+- {name: passwd, rel: 7.el6, ver: '0.77'}
+- {name: libX11-common, rel: 2.el6, ver: 1.6.3}
+- {name: pinentry, rel: 8.el6, ver: 0.7.6}
+- {name: glibc-common, rel: 1.192.el6, ver: '2.12'}
+- {name: gpgme, rel: 3.el6, ver: 1.1.8}
+- {name: glibc, rel: 1.192.el6, ver: '2.12'}
+- {name: patch, rel: 6.el6, ver: '2.6'}
+- {name: bash, rel: 40.el6, ver: 4.1.2}
+- {name: xorg-x11-fonts-Type1, rel: 11.el6, ver: '7.2'}
+- {name: libcap, rel: 5.5.el6, ver: '2.16'}
+- {name: time, rel: 38.el6, ver: '1.7'}
+- {name: libcom_err, rel: 22.el6, ver: 1.41.12}
+- {name: libnih, rel: 7.el6, ver: 1.0.1}
+- {name: dbus-libs, rel: 8.el6_6, ver: 1.2.24}
+- {name: hunspell, rel: 16.el6, ver: 1.2.8}
+- {name: libxml2, rel: 21.el6, ver: 2.7.6}
+- {name: db4-devel, rel: 20.el6_7, ver: 4.7.25}
+- {name: popt, rel: 7.el6, ver: '1.13'}
+- {name: libhugetlbfs, rel: 2.el6, ver: '2.16'}
+- {name: libtalloc, rel: 1.el6_7, ver: 2.1.5}
+- {name: vim-common, rel: 5.el6, ver: 7.4.629}
+- {name: gawk, rel: 10.el6_7.3, ver: 3.1.7}
+- {name: dejavu-sans-fonts, rel: 1.el6, ver: '2.33'}
+- {name: libtevent, rel: 2.el6_7, ver: 0.9.26}
+- {name: glibc-devel, rel: 1.192.el6, ver: '2.12'}
+- {name: readline, rel: 4.el6, ver: '6.0'}
+- {name: perl-ExtUtils-MakeMaker, rel: 141.el6_7.1, ver: '6.55'}
+- {name: elfutils-libelf, rel: 2.el6, ver: '0.164'}
+- {name: perl-Test-Harness, rel: 141.el6_7.1, ver: '3.17'}
+- {name: libjpeg-turbo, rel: 3.el6_5, ver: 1.2.1}
+- {name: perl-Archive-Extract, rel: 141.el6_7.1, ver: '0.38'}
+- {name: libselinux, rel: 7.el6, ver: 2.0.94}
+- {name: perl-ExtUtils-CBuilder, rel: 141.el6_7.1, ver: '0.27'}
+- {name: sed, rel: 10.el6, ver: 4.2.1}
+- {name: perl-Module-Build, rel: 141.el6_7.1, ver: '0.3500'}
+- {name: cyrus-sasl-lib, rel: 15.el6_6.2, ver: 2.1.23}
+- {name: perl-ExtUtils-Embed, rel: 141.el6_7.1, ver: '1.28'}
+- {name: pcre, rel: 7.el6, ver: '7.8'}
+- {name: cdparanoia-libs, rel: 5.1.el6, ver: '10.2'}
+- {name: keyutils-libs, rel: 5.el6, ver: '1.4'}
+- {name: hesiod, rel: 19.el6, ver: 3.1.0}
+- {name: augeas-libs, rel: 10.el6, ver: 1.0.0}
+- {name: pcsc-lite-libs, rel: 15.el6, ver: 1.5.2}
+- {name: json-c, rel: 12.el6, ver: '0.11'}
+- {name: plymouth-core-libs, rel: 27.el6_5.1, ver: 0.8.3}
+- {name: xmlrpc-c, rel: 1210.1840.el6, ver: 1.16.24}
+- {name: libpcap, rel: 4.20130826git2dbcaa1.el6, ver: 1.4.0}
+- {name: libuuid, rel: 12.24.el6, ver: 2.17.2}
+- {name: pixman, rel: 1.el6, ver: 0.32.8}
+- {name: libdhash, rel: 11.el6, ver: 0.4.3}
+- {name: ustr, rel: 9.1.el6, ver: 1.0.4}
+- {name: libcollection, rel: 11.el6, ver: 0.6.2}
+- {name: shadow-utils, rel: 5.el6, ver: 4.1.5.1}
+- {name: libblkid, rel: 12.24.el6, ver: 2.17.2}
+- {name: rpcbind, rel: 12.el6, ver: 0.2.0}
+- {name: findutils, rel: 9.el6, ver: 4.4.2}
+- {name: ConsoleKit-libs, rel: 6.el6, ver: 0.4.1}
+- {name: libidn, rel: 2.el6, ver: '1.18'}
+- {name: ConsoleKit, rel: 6.el6, ver: 0.4.1}
+- {name: pciutils-libs, rel: 4.el6, ver: 3.1.10}
+- {name: libutempter, rel: 4.1.el6, ver: 1.1.5}
+- {name: xz-libs, rel: 0.5.beta.20091007git.el6, ver: 4.999.9}
+- {name: libthai, rel: 3.el6, ver: 0.1.12}
+- {name: elfutils-libs, rel: 2.el6, ver: '0.164'}
+- {name: libffi, rel: 3.2.el6, ver: 3.0.5}
+- {name: psmisc, rel: 19.el6_5, ver: '22.6'}
+- {name: python-libs, rel: 64.el6, ver: 2.6.6}
+- {name: libgpg-error, rel: 4.el6, ver: '1.7'}
+- {name: libldb, rel: 2.el6_7, ver: 1.1.25}
+- {name: libudev, rel: 2.73.el6, ver: '147'}
+- {name: python-paste, rel: 2.el6, ver: 1.7.4}
+- {name: libsss_idmap, rel: 22.el6, ver: 1.13.3}
+- {name: python-setuptools, rel: 3.el6, ver: 0.6.10}
+- {name: libgssglue, rel: 11.el6, ver: '0.1'}
+- {name: newt-python, rel: 3.el6, ver: 0.52.11}
+- {name: net-tools, rel: 110.el6_2, ver: '1.60'}
+- {name: libxml2-python, rel: 21.el6, ver: 2.7.6}
+- {name: binutils, rel: 5.44.el6, ver: 2.20.51.0.2}
+- {name: python-iniparse, rel: 2.1.el6, ver: 0.3.1}
+- {name: gnutls, rel: 19.el6_7, ver: 2.8.5}
+- {name: python-dmidecode, rel: 3.el6_4, ver: 3.10.13}
+- {name: libvorbis, rel: 4.el6_2.1, ver: 1.2.3}
+- {name: python-lxml, rel: 1.1.el6, ver: 2.2.3}
+- {name: keyutils, rel: 5.el6, ver: '1.4'}
+- {name: m2crypto, rel: 9.el6, ver: 0.20.2}
+- {name: libtiff, rel: 10.el6_5, ver: 3.9.4}
+- {name: gettext, rel: 18.el6, ver: '0.17'}
+- {name: avahi-libs, rel: 15.el6, ver: 0.6.25}
+- {name: authconfig, rel: 23.el6, ver: 6.1.12}
+- {name: e2fsprogs-libs, rel: 22.el6, ver: 1.41.12}
+- {name: python-pygments, rel: 1.el6, ver: 1.1.1}
+- {name: sysvinit-tools, rel: 6.dsf.el6, ver: '2.87'}
+- {name: python-pycurl, rel: 9.el6, ver: 7.19.0}
+- {name: newt, rel: 3.el6, ver: 0.52.11}
+- {name: python-beaker, rel: 7.el6, ver: 1.3.1}
+- {name: perl-Pod-Escapes, rel: 141.el6_7.1, ver: '1.04'}
+- {name: python-routes, rel: 2.el6, ver: 1.10.3}
+- {name: perl-Module-Pluggable, rel: 141.el6_7.1, ver: '3.90'}
+- {name: python-weberror, rel: 2.el6, ver: 0.10.2}
+- {name: perl-Pod-Simple, rel: 141.el6_7.1, ver: '3.13'}
+- {name: python-urlgrabber, rel: 11.el6, ver: 3.9.1}
+- {name: perl-Locale-Maketext-Simple, rel: 141.el6_7.1, ver: '0.18'}
+- {name: python-peak-util-addons, rel: 4.1.el6, ver: '0.6'}
+- {name: perl-IO-Compress-Base, rel: 141.el6_7.1, ver: '2.021'}
+- {name: python-gudev, rel: 4.el6_0.1, ver: '147.1'}
+- {name: perl-Module-Load-Conditional, rel: 141.el6_7.1, ver: '0.30'}
+- {name: python-rhsm, rel: 1.el6, ver: 1.16.6}
+- {name: perl-Compress-Raw-Zlib, rel: 141.el6_7.1, ver: '2.021'}
+- {name: python-webtest, rel: 2.el6, ver: '1.2'}
+- {name: lcms-libs, rel: 1.el6, ver: '1.19'}
+- {name: python-formencode, rel: 2.1.el6, ver: 1.2.2}
+- {name: perl-IO-Compress-Zlib, rel: 141.el6_7.1, ver: '2.021'}
+- {name: perl-IO-Zlib, rel: 141.el6_7.1, ver: '1.09'}
+- {name: perl-Log-Message-Simple, rel: 141.el6_7.1, ver: '0.04'}
+- {name: perl-Object-Accessor, rel: 141.el6_7.1, ver: '0.34'}
+- {name: perl-Compress-Raw-Bzip2, rel: 141.el6_7.1, ver: '2.021'}
+- {name: perl-Module-CoreList, rel: 141.el6_7.1, ver: '2.18'}
+- {name: perl-URI, rel: 2.el6, ver: '1.40'}
+- {name: gnutls-utils, rel: 19.el6_7, ver: 2.8.5}
+- {name: gamin, rel: 9.el6, ver: 0.1.10}
+- {name: shared-mime-info, rel: 6.el6, ver: '0.70'}
+- {name: atk, rel: 1.el6, ver: 1.30.0}
+- {name: libgudev1, rel: 2.73.el6, ver: '147'}
+- {name: libtheora, rel: 2.el6, ver: 1.1.0}
+- {name: nss-softokn, rel: 23.el6_7, ver: 3.14.3}
+- {name: libselinux-utils, rel: 7.el6, ver: 2.0.94}
+- {name: jasper-libs, rel: 16.el6_6.3, ver: 1.900.1}
+- {name: acl, rel: 6.el6, ver: 2.2.49}
+- {name: diffutils, rel: 28.el6, ver: 2.8.1}
+- {name: gmp, rel: 10.el6, ver: 4.3.1}
+- {name: libusb, rel: 23.el6, ver: 0.1.12}
+- {name: e2fsprogs, rel: 22.el6, ver: 1.41.12}
+- {name: ncurses, rel: 4.20090207.el6, ver: '5.7'}
+- {name: less, rel: 13.el6, ver: '436'}
+- {name: gzip, rel: 22.el6, ver: 1.3.12}
+- {name: cracklib-dicts, rel: 4.el6, ver: 2.8.16}
+- {name: pam, rel: 22.el6, ver: 1.1.1}
+- {name: module-init-tools, rel: 25.el6, ver: '3.9'}
+- {name: hwdata, rel: 16.1.el6, ver: '0.233'}
+- {name: redhat-logos, rel: 1.el6, ver: 60.0.14}
+- {name: plymouth-scripts, rel: 27.el6_5.1, ver: 0.8.3}
+- {name: libaio, rel: 10.el6, ver: 0.3.107}
+- {name: lzo, rel: 3.1.el6_5.1, ver: '2.03'}
+- {name: pth, rel: 9.3.el6, ver: 2.0.7}
+- {name: libusb1, rel: 0.7.rc1.el6, ver: 1.0.9}
+- {name: libgfortran, rel: 17.el6, ver: 4.4.7}
+- {name: poppler, rel: 10.el6, ver: 0.12.4}
+- {name: atlas, rel: 2.el6, ver: 3.8.4}
+- {name: device-mapper-persistent-data, rel: 0.1.rc7.el6, ver: 0.6.2}
+- {name: krb5-workstation, rel: 57.el6, ver: 1.10.3}
+- {name: sssd-client, rel: 22.el6, ver: 1.13.3}
+- {name: logrotate, rel: 26.el6_7, ver: 3.7.8}
+- {name: nss-sysinit, rel: 8.el6, ver: 3.21.0}
+- {name: mailx, rel: 8.el6_6, ver: '12.4'}
+- {name: nss_compat_ossl, rel: 2.el6_7, ver: 0.9.6}
+- {name: hicolor-icon-theme, rel: 1.1.el6, ver: '0.11'}
+- {name: xorg-x11-font-utils, rel: 11.el6, ver: '7.2'}
+- {name: ghostscript-fonts, rel: 23.2.el6, ver: '5.50'}
+- {name: eggdbus, rel: 3.el6, ver: '0.6'}
+- {name: desktop-file-utils, rel: 9.el6, ver: '0.15'}
+- {name: libIDL, rel: 2.1.el6, ver: 0.8.13}
+- {name: nc, rel: 24.el6, ver: '1.84'}
+- {name: gstreamer, rel: 1.el6, ver: 0.10.29}
+- {name: ca-certificates, rel: 65.0.1.el6_7, ver: 2015.2.6}
+- {name: qt, rel: 28.el6_5, ver: 4.6.2}
+- {name: qt-sqlite, rel: 28.el6_5, ver: 4.6.2}
+- {name: bind-libs, rel: 0.47.rc1.el6, ver: 9.8.2}
+- {name: mysql-libs, rel: 7.el6, ver: 5.1.73}
+- {name: fipscheck, rel: 7.el6, ver: 1.2.0}
+- {name: perl-DBD-SQLite, rel: 3.el6, ver: '1.27'}
+- {name: perl-IO-Compress-Bzip2, rel: 141.el6_7.1, ver: '2.021'}
+- {name: perl-Time-HiRes, rel: 141.el6_7.1, ver: '1.9721'}
+- {name: perl-Net-Telnet, rel: 11.el6, ver: '3.03'}
+- {name: perl-HTML-Tagset, rel: 4.el6, ver: '3.20'}
+- {name: perl-libwww-perl, rel: 3.el6, ver: '5.833'}
+- {name: lvm2-cluster, rel: 7.el6_8.1, ver: 2.02.143}
+- {name: udev, rel: 2.73.el6, ver: '147'}
+- {name: libselinux-python, rel: 7.el6, ver: 2.0.94}
+- {name: mesa-libGL, rel: 4.el6, ver: 11.0.7}
+- {name: mesa-dri-drivers, rel: 4.el6, ver: 11.0.7}
+- {name: mesa-libGLU, rel: 4.el6, ver: 11.0.7}
+- {name: cups, rel: 74.el6, ver: 1.4.2}
+- {name: nfs-utils-lib, rel: 11.el6, ver: 1.1.5}
+- {name: sssd-common, rel: 22.el6, ver: 1.13.3}
+- {name: sssd-common-pac, rel: 22.el6, ver: 1.13.3}
+- {name: kpartx, rel: 93.el6, ver: 0.4.9}
+- {name: phonon-backend-gstreamer, rel: 28.el6_5, ver: 4.6.2}
+- {name: kbd, rel: 11.el6, ver: '1.15'}
+- {name: libcgroup, rel: 17.el6_7, ver: 0.40.rc1}
+- {name: samba-common, rel: 33.el6, ver: 3.6.23}
+- {name: samba-winbind, rel: 33.el6, ver: 3.6.23}
+- {name: openssh-clients, rel: 117.el6, ver: 5.3p1}
+- {name: libibverbs, rel: 4.el6, ver: 1.1.8}
+- {name: corosync, rel: 5.el6, ver: 1.4.7}
+- {name: clusterlib, rel: 78.el6, ver: 3.0.12.1}
+- {name: openais, rel: 7.el6, ver: 1.1.1}
+- {name: dracut-kernel, rel: 409.el6, ver: '004'}
+- {name: dmraid, rel: 11.el6, ver: 1.0.0.rc16}
+- {name: sssd-ad, rel: 22.el6, ver: 1.13.3}
+- {name: sssd-krb5, rel: 22.el6, ver: 1.13.3}
+- {name: sssd, rel: 22.el6, ver: 1.13.3}
+- {name: foomatic-db-ppds, rel: 7.20091126.el6, ver: '4.0'}
+- {name: foomatic, rel: 5.el6_7, ver: 4.0.4}
+- {name: ricci, rel: 86.el6, ver: 0.16.2}
+- {name: cryptsetup-luks, rel: 11.el6, ver: 1.2.0}
+- {name: hal-info, rel: 5.el6, ver: '20090716'}
+- {name: libvirt-client, rel: 60.el6, ver: 0.10.2}
+- {name: cman, rel: 78.el6, ver: 3.0.12.1}
+- {name: rhnsd, rel: 2.el6, ver: 4.9.3}
+- {name: yum-rhn-plugin, rel: 60.el6, ver: 0.9.1}
+- {name: mdadm, rel: 1.el6, ver: 3.3.4}
+- {name: wireless-tools, rel: 6.el6, ver: '29'}
+- {name: at, rel: 48.el6, ver: 3.1.10}
+- {name: crontabs, rel: 33.el6, ver: '1.10'}
+- {name: cronie, rel: 15.el6_7.1, ver: 1.4.4}
+- {name: redhat-lsb-graphics, rel: 7.el6, ver: '4.0'}
+- {name: redhat-lsb-compat, rel: 7.el6, ver: '4.0'}
+- {name: yp-tools, rel: 12.el6, ver: '2.9'}
+- {name: certmonger, rel: 2.el6, ver: 0.77.5}
+- {name: ipa-python, rel: 50.el6.1, ver: 3.0.0}
+- {name: system-config-firewall-base, rel: 7.2.el6_6, ver: 1.2.27}
+- {name: dhcp-common, rel: 51.P1.el6, ver: 4.1.1}
+- {name: kernel, rel: 642.el6, ver: 2.6.32}
+- {name: ipa-client, rel: 50.el6.1, ver: 3.0.0}
+- {name: pcmciautils, rel: 4.2.el6, ver: '015'}
+- {name: selinux-policy-targeted, rel: 292.el6, ver: 3.7.19}
+- {name: subscription-manager, rel: 8.el6, ver: 1.16.8}
+- {name: rgmanager, rel: 26.el6, ver: 3.0.12.1}
+- {name: kexec-tools, rel: 300.el6, ver: 2.0.0}
+- {name: samba-client, rel: 33.el6, ver: 3.6.23}
+- {name: redhat-access-insights, rel: 13.el6, ver: 1.0.8}
+- {name: luci, rel: 78.el6, ver: 0.26.0}
+- {name: biosdevname, rel: 3.el6, ver: 0.7.1}
+- {name: iwl5150-firmware, rel: 1.el6, ver: 8.24.2.2}
+- {name: iwl6050-firmware, rel: 2.el6, ver: 41.28.5.1}
+- {name: iwl6000g2a-firmware, rel: 1.el6, ver: 17.168.5.3}
+- {name: iwl6000-firmware, rel: 1.el6, ver: 9.221.4.1}
+- {name: acpid, rel: 3.el6, ver: 1.0.10}
+- {name: rhnlib, rel: 15.el6, ver: 2.5.22}
+- {name: readahead, rel: 2.el6, ver: 1.5.6}
+- {name: yum-metadata-parser, rel: 16.el6, ver: 1.1.2}
+- {name: cpuspeed, rel: 22.el6, ver: '1.5'}
+- {name: yum, rel: 73.el6, ver: 3.2.29}
+- {name: prelink, rel: 3.1.el6_4, ver: 0.4.6}
+- {name: python-kerberos, rel: 7.el6, ver: '1.1'}
+- {name: fprintd-pam, rel: 22.git04fd09cfa.el6, ver: '0.1'}
+- {name: python-libipa_hbac, rel: 22.el6, ver: 1.13.3}
+- {name: latencytop, rel: 9.el6, ver: '0.5'}
+- {name: python-paramiko, rel: 2.1.el6, ver: 1.7.5}
+- {name: hwloc, rel: 3.el6_5, ver: '1.5'}
+- {name: samba4-libs, rel: 6.el6_7, ver: 4.2.10}
+- {name: yum-plugin-security, rel: 37.el6, ver: 1.1.30}
+- {name: python-mako, rel: 1.el6, ver: 0.3.4}
+- {name: redhat-support-tool, rel: 4.el6, ver: 0.9.8}
+- {name: python-krbV, rel: 3.el6, ver: 1.0.90}
+- {name: perf, rel: 642.el6, ver: 2.6.32}
+- {name: pexpect, rel: 6.el6, ver: '2.3'}
+- {name: ccs, rel: 86.el6, ver: 0.16.2}
+- {name: python-netaddr, rel: 4.el6, ver: 0.7.5}
+- {name: iotop, rel: 7.el6, ver: 0.3.2}
+- {name: python-chardet, rel: 1.el6, ver: 2.2.1}
+- {name: mlocate, rel: 6.el6, ver: 0.22.2}
+- {name: libproxy, rel: 10.el6, ver: 0.3.0}
+- {name: tcpdump, rel: 9.20090921gitdf3cb4.2.el6, ver: 4.0.0}
+- {name: libreport-python, rel: 32.el6, ver: 2.0.9}
+- {name: perl-core, rel: 141.el6_7.1, ver: 5.10.1}
+- {name: libreport-compat, rel: 32.el6, ver: 2.0.9}
+- {name: man-pages-overrides, rel: 1.el6, ver: 6.8.2}
+- {name: libreport-plugin-reportuploader, rel: 32.el6, ver: 2.0.9}
+- {name: adcli, rel: 1.el6, ver: 0.8.1}
+- {name: libreport-plugin-mailx, rel: 32.el6, ver: 2.0.9}
+- {name: perl-XML-Twig, rel: 1.el6, ver: '3.34'}
+- {name: libreport-cli, rel: 32.el6, ver: 2.0.9}
+- {name: perl-Crypt-SSLeay, rel: 17.el6, ver: '0.57'}
+- {name: libreport-plugin-ureport, rel: 32.el6, ver: 2.0.9}
+- {name: Red_Hat_Enterprise_Linux-Release_Notes-6-en-US, rel: 2.el6, ver: '8'}
+- {name: abrt, rel: 40.el6, ver: 2.0.8}
+- {name: usbutils, rel: 6.el6, ver: '003'}
+- {name: abrt-addon-ccpp, rel: 40.el6, ver: 2.0.8}
+- {name: crash-gcore-command, rel: 5.el6, ver: '1.0'}
+- {name: python-babel, rel: 5.1.el6, ver: 0.9.4}
+- {name: pam_passwdqc, rel: 8.el6, ver: 1.0.5}
+- {name: python-myghty, rel: 11.el6, ver: '1.1'}
+- {name: tcsh, rel: 35.el6, ver: '6.17'}
+- {name: python-zope-filesystem, rel: 5.el6, ver: '1'}
+- {name: powertop, rel: 3.el6, ver: '2.3'}
+- {name: python-repoze-who, rel: 1.el6, ver: 1.0.18}
+- {name: valgrind, rel: 8.el6, ver: 3.8.1}
+- {name: python-repoze-tm2, rel: 0.5.a4.el6, ver: '1.0'}
+- {name: efibootmgr, rel: 13.el6, ver: 0.5.4}
+- {name: python-repoze-who-testutil, rel: 0.4.rc1.el6, ver: '1.0'}
+- {name: cyrus-sasl-plain, rel: 15.el6_6.2, ver: 2.1.23}
+- {name: python-sqlalchemy, rel: 3.el6_2, ver: 0.5.5}
+- {name: ltrace, rel: 28.45svn.el6, ver: '0.5'}
+- {name: python-backports, rel: 5.el6, ver: '1.0'}
+- {name: nano, rel: 7.el6, ver: 2.0.9}
+- {name: python-urllib3, rel: 1.el6, ver: 1.10.2}
+- {name: nfs4-acl-tools, rel: 8.el6, ver: 0.3.3}
+- {name: python-peak-util-extremes, rel: 4.1.el6, ver: '1.1'}
+- {name: strace, rel: 10.el6, ver: '4.8'}
+- {name: python-cheetah, rel: 1.el6, ver: 2.4.1}
+- {name: mtr, rel: 5.el6, ver: '0.75'}
+- {name: python-pylons, rel: 2.el6, ver: 0.9.7}
+- {name: setserial, rel: 25.el6, ver: '2.17'}
+- {name: python-peak-util-symbols, rel: 4.1.el6, ver: '1.0'}
+- {name: zip, rel: 1.el6_7.1, ver: '3.0'}
+- {name: python-peak-rules, rel: 9.2582.1.el6, ver: 0.5a1.dev}
+- {name: rfkill, rel: 4.el6, ver: '0.3'}
+- {name: python-turbojson, rel: 8.1.el6, ver: 1.2.1}
+- {name: bridge-utils, rel: 10.el6, ver: '1.2'}
+- {name: pax, rel: 10.1.el6, ver: '3.4'}
+- {name: b43-fwcutter, rel: 2.2.el6, ver: '012'}
+- {name: libnl3, rel: 8.el6, ver: 3.2.21}
+- {name: trace-cmd, rel: 3.el6, ver: 2.2.4}
+- {name: theora-tools, rel: 2.el6, ver: 1.1.0}
+- {name: omping, rel: 1.el6, ver: 0.0.4}
+- {name: libini_config, rel: 11.el6, ver: 1.1.0}
+- {name: ql2400-firmware, rel: 1.el6, ver: 7.03.00}
+- {name: libXau, rel: 4.el6, ver: 1.0.6}
+- {name: ql2100-firmware, rel: 3.1.el6, ver: 1.19.38}
+- {name: libX11, rel: 2.el6, ver: 1.6.3}
+- {name: libertas-usb8388-firmware, rel: 3.1.el6, ver: 5.110.22.p23}
+- {name: libXrender, rel: 2.1.el6, ver: 0.9.8}
+- {name: ql2500-firmware, rel: 1.el6, ver: 7.03.00}
+- {name: libXi, rel: 1.el6, ver: 1.7.4}
+- {name: zd1211-firmware, rel: 4.el6, ver: '1.4'}
+- {name: libXfixes, rel: 2.1.el6, ver: 5.0.1}
+- {name: rt61pci-firmware, rel: 7.el6, ver: '1.2'}
+- {name: libXcursor, rel: 2.1.el6, ver: 1.1.14}
+- {name: ql2200-firmware, rel: 3.1.el6, ver: 2.02.08}
+- {name: libXft, rel: 1.el6, ver: 2.3.2}
+- {name: ipw2100-firmware, rel: 11.el6, ver: '1.3'}
+- {name: libXinerama, rel: 2.1.el6, ver: 1.1.3}
+- {name: ipw2200-firmware, rel: 4.el6, ver: '3.1'}
+- {name: pulseaudio-libs, rel: 24.el6, ver: 0.9.21}
+- {name: man-pages, rel: 20.el6, ver: '3.22'}
+- {name: giflib, rel: 3.1.el6, ver: 4.1.6}
+- {name: redhat-indexhtml, rel: 6.el6, ver: '6'}
+- {name: gtk2, rel: 8.el6, ver: 2.24.23}
+- {name: gpg-pubkey, rel: 45700c69, ver: 2fa658e0}
+- {name: ghostscript, rel: 21.el6, ver: '8.70'}
+- {name: ntp, rel: 10.el6.1, ver: 4.2.6p5}
+- {name: libfprint, rel: 19.pre2.el6, ver: 0.1.0}
+- {name: libqb, rel: 2.el6, ver: 0.17.1}
+- {name: pycairo, rel: 2.1.el6, ver: 1.8.6}
+- {name: pacemaker-cluster-libs, rel: 8.el6_8.1, ver: 1.1.14}
+- {name: libXxf86vm, rel: 2.1.el6, ver: 1.1.3}
+- {name: compat-readline5, rel: 17.1.el6, ver: '5.2'}
+- {name: lm_sensors-libs, rel: 17.el6, ver: 3.1.1}
+- {name: ruby, rel: 4.el6_6, ver: 1.8.7.374}
+- {name: net-snmp-utils, rel: 57.el6, ver: '5.5'}
+- {name: ruby-rdoc, rel: 4.el6_6, ver: 1.8.7.374}
+- {name: libvisual, rel: 10.el6, ver: 0.4.0}
+- {name: perl-TimeDate, rel: 13.el6, ver: '1.16'}
+- {name: busybox, rel: 21.el6_6, ver: 1.15.1}
+- {name: pacemaker, rel: 8.el6_8.1, ver: 1.1.14}
+- {name: redhat-release-server, rel: 6.8.0.5.el6, ver: 6Server}
+- {name: resource-agents, rel: 34.el6_8.2, ver: 3.9.5}
+- {name: iptables, rel: 16.el6, ver: 1.4.7}
+- {name: device-mapper, rel: 7.el6_8.1, ver: 1.02.117}
+- {name: libdrm, rel: 2.el6, ver: 2.4.65}
+- {name: device-mapper-event, rel: 7.el6_8.1, ver: 1.02.117}
+- {name: plymouth, rel: 27.el6_5.1, ver: 0.8.3}
+- {name: lvm2, rel: 7.el6_8.1, ver: 2.02.143}
+- {name: initscripts, rel: 1.el6, ver: 9.03.53}
+- {name: perl-libxml-perl, rel: 10.el6, ver: '0.08'}
+- {name: setup, rel: 20.el6_4.1, ver: 2.8.14}
+- {name: mesa-dri1-drivers, rel: 8.el6, ver: '7.11'}
+- {name: flac, rel: 7.el6_6, ver: 1.2.1}
+- {name: foomatic-db-filesystem, rel: 7.20091126.el6, ver: '4.0'}
+- {name: db4-utils, rel: 20.el6_7, ver: 4.7.25}
+- {name: basesystem, rel: 4.el6, ver: '10.0'}
+- {name: oddjob, rel: 6.el6, ver: '0.30'}
+- {name: rpm, rel: 55.el6, ver: 4.8.0}
+- {name: kernel-headers, rel: 642.el6, ver: 2.6.32}
+- {name: sssd-krb5-common, rel: 22.el6, ver: 1.13.3}
+- {name: libuser, rel: 8.el6_7, ver: 0.56.13}
+- {name: libreport-filesystem, rel: 32.el6, ver: 2.0.9}
+- {name: qt-x11, rel: 28.el6_5, ver: 4.6.2}
+- {name: gnupg2, rel: 8.el6, ver: 2.0.14}
+- {name: nss-softokn-freebl, rel: 23.el6_7, ver: 3.14.3}
+- {name: dracut, rel: 409.el6, ver: '004'}
+- {name: ttmkfdir, rel: 32.1.el6, ver: 3.0.9}
+- {name: libattr, rel: 7.el6, ver: 2.4.44}
+- {name: samba-winbind-clients, rel: 33.el6, ver: 3.6.23}
+- {name: libgomp, rel: 17.el6, ver: 4.4.7}
+- {name: libstdc++, rel: 17.el6, ver: 4.4.7}
+- {name: rdma, rel: 1.el6, ver: 6.8_4.1}
+- {name: db4-cxx, rel: 20.el6_7, ver: 4.7.25}
+- {name: nspr, rel: 1.el6, ver: 4.11.0}
+- {name: corosynclib, rel: 5.el6, ver: 1.4.7}
+- {name: lksctp-tools, rel: 7.el6, ver: 1.0.10}
+- {name: audit-libs, rel: 3.el6, ver: 2.4.5}
+- {name: openaislib, rel: 7.el6, ver: 1.1.1}
+- {name: glibc-headers, rel: 1.192.el6, ver: '2.12'}
+- {name: libacl, rel: 6.el6, ver: 2.2.49}
+- {name: perl-devel, rel: 141.el6_7.1, ver: 5.10.1}
+- {name: expat, rel: 11.el6_2, ver: 2.0.1}
+- {name: sssd-ldap, rel: 22.el6, ver: 1.13.3}
+- {name: perl-File-Fetch, rel: 141.el6_7.1, ver: '0.26'}
+- {name: chkconfig, rel: 1.el6, ver: 1.3.49.5}
+- {name: oddjob-mkhomedir, rel: 6.el6, ver: '0.30'}
+- {name: perl-CPANPLUS, rel: 141.el6_7.1, ver: '0.88'}
+- {name: bzip2-libs, rel: 7.el6_0, ver: 1.0.5}
+- {name: parted, rel: 29.el6, ver: '2.1'}
+- {name: telnet, rel: 48.el6, ver: '0.17'}
+- {name: krb5-libs, rel: 57.el6, ver: 1.10.3}
+- {name: pm-utils, rel: 11.el6, ver: 1.2.5}
+- {name: libevent, rel: 4.el6, ver: 1.4.13}
+- {name: libICE, rel: 1.el6, ver: 1.0.6}
+- {name: fence-agents, rel: 12.el6, ver: 4.0.15}
+- {name: gpm-libs, rel: 12.el6, ver: 1.20.6}
+- {name: libSM, rel: 2.el6, ver: 1.2.1}
+- {name: rhn-setup, rel: 38.el6, ver: 1.0.0.1}
+- {name: libsemanage, rel: 5.1.el6, ver: 2.0.43}
+- {name: libref_array, rel: 11.el6, ver: 0.1.4}
+- {name: crda, rel: 3.el6, ver: 3.13_2015.10.22}
+- {name: hal-libs, rel: 14.el6, ver: 0.5.14}
+- {name: sqlite, rel: 1.el6_7.2, ver: 3.6.20}
+- {name: quota, rel: 23.el6, ver: '3.17'}
+- {name: GConf2, rel: 6.el6, ver: 2.28.0}
+- {name: libcap-ng, rel: 3.el6_0.1, ver: 0.6.4}
+- {name: rsyslog, rel: 10.el6_6, ver: 5.8.10}
+- {name: libasyncns, rel: 1.1.el6, ver: '0.8'}
+- {name: procps, rel: 36.el6, ver: 3.2.8}
+- {name: redhat-lsb-core, rel: 7.el6, ver: '4.0'}
+- {name: libtdb, rel: 1.el6_7, ver: 1.3.8}
+- {name: libgcrypt, rel: 11.el6_4, ver: 1.4.5}
+- {name: redhat-lsb, rel: 7.el6, ver: '4.0'}
+- {name: python-simplejson, rel: 3.1.el6, ver: 2.0.9}
+- {name: file, rel: 30.el6, ver: '5.04'}
+- {name: virt-what, rel: 1.2.el6, ver: '1.11'}
+- {name: python-dateutil, rel: 6.el6, ver: 1.4.1}
+- {name: cpio, rel: 12.el6_5, ver: '2.10'}
+- {name: selinux-policy, rel: 292.el6, ver: 3.7.19}
+- {name: python-webob, rel: 3.el6, ver: 0.9.6.1}
+- {name: libtirpc, rel: 11.el6, ver: 0.2.1}
+- {name: autofs, rel: 122.el6, ver: 5.0.5}
+- {name: python-ethtool, rel: 5.el6, ver: '0.6'}
+- {name: tar, rel: 14.el6, ver: '1.23'}
+- {name: dhclient, rel: 51.P1.el6, ver: 4.1.1}
+- {name: python-decoratortools, rel: 4.1.el6, ver: '1.7'}
+- {name: cups-libs, rel: 74.el6, ver: 1.4.2}
+- {name: sysstat, rel: 31.el6, ver: 9.0.4}
+- {name: python-magic, rel: 30.el6, ver: '5.04'}
+- {name: slang, rel: 1.el6, ver: 2.2.1}
+- {name: abrt-cli, rel: 40.el6, ver: 2.0.8}
+- {name: python-decorator, rel: 3.1.el6, ver: 3.0.1}
+- {name: perl-libs, rel: 141.el6_7.1, ver: 5.10.1}
+- {name: numad, rel: 12.20150602git.el6, ver: '0.5'}
+- {name: python-webhelpers, rel: 4.el6, ver: 0.6.4}
+- {name: perl, rel: 141.el6_7.1, ver: 5.10.1}
+- {name: bfa-firmware, rel: 2.el6, ver: 3.2.23.0}
+- {name: ipmitool, rel: 2.el6, ver: 1.8.15}
+- {name: perl-Module-Load, rel: 141.el6_7.1, ver: '0.16'}
+- {name: b43-openfwwf, rel: 10.el6, ver: '5.2'}
+- {name: python-toscawidgets, rel: 1.el6, ver: 0.9.8}
+- {name: perl-Package-Constants, rel: 141.el6_7.1, ver: '0.02'}
+- {name: iwl1000-firmware, rel: 1.el6, ver: 39.31.5.1}
+- {name: python-webflash, rel: 0.2.a9.el6, ver: '0.1'}
+- {name: perl-Compress-Zlib, rel: 141.el6_7.1, ver: '2.021'}
+- {name: microcode_ctl, rel: 21.el6, ver: '1.17'}
+- {name: pygpgme, rel: 18.20090824bzr68.el6, ver: '0.1'}
+- {name: perl-Term-UI, rel: 141.el6_7.1, ver: '0.20'}
+- {name: seekwatcher, rel: 5.el6, ver: '0.12'}
+- {name: python-nss, rel: 1.el6, ver: 0.16.0}
+- {name: perl-Digest-SHA, rel: 141.el6_7.1, ver: '5.47'}
+- {name: oprofile, rel: 13.el6, ver: 0.9.9}
+- {name: pytalloc, rel: 1.el6_7, ver: 2.1.5}
+- {name: perl-DBI, rel: 4.el6, ver: '1.609'}
+- {name: yum-utils, rel: 37.el6, ver: 1.1.30}
+- {name: blktrace, rel: 7.el6, ver: 1.0.1}
+- {name: glib2, rel: 5.el6, ver: 2.28.8}
+- {name: grub, rel: 94.el6_7.1, ver: '0.97'}
+- {name: python-suds, rel: 3.el6, ver: 0.4.1}
+- {name: libipa_hbac, rel: 22.el6, ver: 1.13.3}
+- {name: dstat, rel: 2.el6, ver: 0.7.0}
+- {name: libproxy-bin, rel: 10.el6, ver: 0.3.0}
+- {name: xz, rel: 0.5.beta.20091007git.el6, ver: 4.999.9}
+- {name: vim-enhanced, rel: 5.el6, ver: 7.4.629}
+- {name: libreport-plugin-rhtsupport, rel: 32.el6, ver: 2.0.9}
+- {name: checkpolicy, rel: 1.el6, ver: 2.0.22}
+- {name: sudo, rel: 24.el6, ver: 1.8.6p3}
+- {name: abrt-libs, rel: 40.el6, ver: 2.0.8}
+- {name: make, rel: 23.el6, ver: '3.81'}
+- {name: perl-XML-Dumper, rel: 8.el6, ver: '0.81'}
+- {name: libreport-plugin-logger, rel: 32.el6, ver: 2.0.9}
+- {name: snappy, rel: 1.el6, ver: 1.1.0}
+- {name: elinks, rel: 0.21.pre5.el6_3, ver: '0.12'}
+- {name: abrt-addon-kerneloops, rel: 40.el6, ver: 2.0.8}
+- {name: libfontenc, rel: 3.el6, ver: 1.1.2}
+- {name: alsa-utils, rel: 8.el6, ver: 1.1.0}
+- {name: python-genshi, rel: 7.1.el6, ver: 0.5.1}
+- {name: coreutils-libs, rel: 43.el6, ver: '8.4'}
+- {name: audit, rel: 3.el6, ver: 2.4.5}
+- {name: python-zope-interface, rel: 2.1.el6, ver: 3.5.2}
+- {name: coreutils, rel: 43.el6, ver: '8.4'}
+- {name: ntsysv, rel: 1.el6, ver: 1.3.49.5}
+- {name: python-repoze-who-friendlyform, rel: 0.3.b3.el6, ver: '1.0'}
+- {name: alsa-lib, rel: 4.el6, ver: 1.1.0}
+- {name: lsof, rel: 5.el6, ver: '4.82'}
+- {name: python-zope-sqlalchemy, rel: 3.el6, ver: '0.4'}
+- {name: jpackage-utils, rel: 3.16.el6, ver: 1.7.5}
+- {name: attr, rel: 7.el6, ver: 2.4.44}
+- {name: python-requests, rel: 3.el6, ver: 2.6.0}
+- {name: ethtool, rel: 6.el6, ver: '3.5'}
+- {name: mcelog, rel: 1.c83713fd.el6, ver: '128'}
+- {name: python-paste-script, rel: 5.el6_3, ver: 1.7.3}
+- {name: sg3_utils-libs, rel: 12.el6, ver: '1.28'}
+- {name: vconfig, rel: 8.1.el6, ver: '1.9'}
+- {name: python-peak-util-assembler, rel: 1.el6, ver: 0.5.1}
+- {name: openjpeg-libs, rel: 11.el6, ver: '1.3'}
+- {name: rdate, rel: 16.el6, ver: '1.4'}
+- {name: TurboGears2, rel: 4.el6, ver: 2.0.3}
+- {name: sg3_utils, rel: 12.el6, ver: '1.28'}
+- {name: latrace, rel: 2.el6, ver: 0.5.9}
+- {name: SDL, rel: 7.el6_7.1, ver: 1.2.14}
+- {name: pam_krb5, rel: 9.el6, ver: 2.3.11}
+- {name: libtopology, rel: 7.el6, ver: '0.3'}
+- {name: yajl, rel: 3.el6, ver: 1.0.7}
+- {name: nss, rel: 8.el6, ver: 3.21.0}
+- {name: ivtv-firmware, rel: '20.2', ver: '20080701'}
+- {name: libXext, rel: 1.el6, ver: 1.3.3}
+- {name: fence-virt, rel: 19.el6, ver: 0.2.3}
+- {name: atmel-firmware, rel: 7.el6, ver: '1.3'}
+- {name: gdk-pixbuf2, rel: 6.el6_7, ver: 2.24.1}
+- {name: libXfont, rel: 2.el6, ver: 1.5.1}
+- {name: iwl3945-firmware, rel: 4.el6, ver: 15.32.2.9}
+- {name: libXrandr, rel: 1.el6, ver: 1.4.2}
+- {name: xz-lzma-compat, rel: 0.5.beta.20091007git.el6, ver: 4.999.9}
+- {name: ql23xx-firmware, rel: 3.1.el6, ver: 3.03.27}
+- {name: qt3, rel: 30.el6, ver: 3.3.8b}
+- {name: xdg-utils, rel: 17.20091016cvs.el6, ver: 1.0.2}
+- {name: words, rel: 17.el6, ver: '3.0'}
+- {name: libXcomposite, rel: 4.el6, ver: 0.4.3}
+- {name: gstreamer-tools, rel: 1.el6, ver: 0.10.29}
+- {name: ntpdate, rel: 10.el6.1, ver: 4.2.6p5}
+- {name: java-1.7.0-openjdk, rel: 2.6.5.1.el6, ver: 1.7.0.99}
+- {name: openssl, rel: 48.el6, ver: 1.0.1e}
+- {name: pacemaker-libs, rel: 8.el6_8.1, ver: 1.1.14}
+- {name: python-matplotlib, rel: 1.el6, ver: 0.99.1.2}
+- {name: wget, rel: 8.el6, ver: '1.12'}
+- {name: ruby-libs, rel: 4.el6_6, ver: 1.8.7.374}
+- {name: net-snmp-libs, rel: 57.el6, ver: '5.5'}
+- {name: fipscheck-lib, rel: 7.el6, ver: 1.2.0}
+- {name: rubygems, rel: 5.el6, ver: 1.3.7}
+- {name: gstreamer-plugins-base, rel: 2.el6, ver: 0.10.29}
+- {name: perl-DBIx-Simple, rel: 3.el6, ver: '1.32'}
+- {name: pcs, rel: 7.el6_8.1, ver: 0.9.148}
+- {name: policycoreutils, rel: 29.el6, ver: 2.0.83}
+- {name: perl-parent, rel: 141.el6_7.1, ver: '0.221'}
+- {name: device-mapper-event-libs, rel: 7.el6_8.1, ver: 1.02.117}
+- {name: iputils, rel: 21.el6, ver: '20071127'}
+- {name: perl-HTML-Parser, rel: 2.el6, ver: '3.64'}
+procs: [/sbin/init, "/sbin/udevd\0-d", "/sbin/udevd\0-d", /sbin/dmeventd, "/sbin/dhclient\0\
+    -H\0cls-1\0-1\0-q\0-lf\0/var/lib/dhclient/dhclient-eth0.leases\0-pf\0/var/run/dhclient-eth0.pid\0\
+    eth0", auditd, "/sbin/rsyslogd\0-i\0/var/run/syslogd.pid\0-c\05", rpcbind, rpc.statd,
+  "/usr/bin/ruby\0-C/var/lib/pcsd\0-I/usr/lib/pcsd\0--\0/usr/lib/pcsd/ssl.rb", "dbus-daemon\0\
+    --system", "cupsd\0-C\0/etc/cups/cupsd.conf", /usr/sbin/acpid, hald, hald-runner,
+  'hald-addon-input: Listening on /dev/input/event2 /dev/input/event0', 'hald-addon-acpi:
+    listening on acpid socket /var/run/acpid.socket', "automount\0--pid-file\0/var/run/autofs.pid",
+  "/usr/sbin/mcelog\0--daemon", /usr/sbin/sshd, "ntpd\0-u\0ntp:ntp\0-p\0/var/run/ntpd.pid\0\
+    -g", /usr/sbin/abrtd, crond, /usr/sbin/atd, /usr/bin/rhsmcertd, "/usr/sbin/certmonger\0\
+    -S\0-p\0/var/run/certmonger.pid", "/sbin/udevd\0-d", "corosync\0-f", fenced, dlm_controld,
+  gfs_controld, pacemakerd, /usr/libexec/pacemaker/cib, /usr/libexec/pacemaker/stonithd,
+  /usr/libexec/pacemaker/lrmd, /usr/libexec/pacemaker/attrd, /usr/libexec/pacemaker/pengine,
+  /usr/libexec/pacemaker/crmd, login -- root, "/sbin/mingetty\0/dev/tty2", "/sbin/mingetty\0\
+    /dev/tty3", "/sbin/mingetty\0/dev/tty4", "/sbin/mingetty\0/dev/tty5", "/sbin/mingetty\0\
+    /dev/tty6", 'sshd: root@pts/0', "/bin/sh\0-c\0/usr/bin/python /root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/assessment.py;\
+    \ rm -rf \"/root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/\" > /dev/null\
+    \ 2>&1 && sleep 0", "/usr/bin/python\0/root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/assessment.py",
+  "/usr/bin/python\0/tmp/ansible_QrzqWI/ansible_module_assessment.py", /usr/libexec/postfix/master,
+  "qmgr\0-l\0-t\0fifo\0-u", "/usr/sbin/console-kit-daemon\0--no-daemon", -bash]
+sudoers: [Defaults   !visiblepw, Defaults    always_set_home, Defaults    env_reset,
+  Defaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS",
+  Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+  Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES",
+  Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+  Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+  'Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin', "root\tALL=(ALL) \tALL"]
+sysctl: [net.ipv4.ip_forward = 0, net.ipv4.conf.default.rp_filter = 1, net.ipv4.conf.default.accept_source_route
+    = 0, kernel.sysrq = 0, kernel.core_uses_pid = 1, net.ipv4.tcp_syncookies = 1,
+  kernel.msgmnb = 65536, kernel.msgmax = 65536, kernel.shmmax = 68719476736, kernel.shmall
+    = 4294967296]
+users:
+- description: null
+  gid: 173
+  groups: []
+  home: /etc/abrt
+  shell: /sbin/nologin
+  uid: 173
+  username: abrt
+- description: Saslauthd user
+  gid: 76
+  groups: []
+  home: /var/empty/saslauth
+  shell: /sbin/nologin
+  uid: 499
+  username: saslauth
+- description: Anonymous NFS User
+  gid: 65534
+  groups: []
+  home: /var/lib/nfs
+  shell: /sbin/nologin
+  uid: 65534
+  username: nfsnobody
+- description: ricci daemon user
+  gid: 140
+  groups: []
+  home: /var/lib/ricci
+  shell: /sbin/nologin
+  uid: 140
+  username: ricci
+- description: luci high availability management application
+  gid: 141
+  groups: []
+  home: /var/lib/luci
+  shell: /sbin/nologin
+  uid: 141
+  username: luci
+- description: cluster user
+  gid: 189
+  groups: [abrt]
+  home: /home/hacluster
+  shell: /sbin/nologin
+  uid: 189
+  username: hacluster
