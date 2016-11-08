@@ -29,11 +29,9 @@ EXAMPLES = '''
 - assessment: users=False
 '''
 
-
-import rpm
 import os
 import re
-import ConfigParser
+
 
 from ansible.module_utils.basic import *
 from ansible.module_utils.facts import *
@@ -153,7 +151,14 @@ def get_crontab():
     return itemlist
 
 def get_repos():
+    try:
+        import ConfigParser
+    except:
+        module.fail_json(msg="Module ConfigParser is not present")
+        sys.exit(1)
+
     itemlist = []
+
     for dirpath, dirnames, filenames in os.walk('/etc/yum.repos.d/'):
         repo = {}
         for f in filenames:
@@ -164,7 +169,32 @@ def get_repos():
                 itemlist.append(config._sections)
     return itemlist
 
+
+def get_rpm_nodep():
+    import datetime
+
+    itemlist = []
+    cmd = os.popen("rpm -qa --queryformat '%{INSTALLTIME}#%{NAME}#%{VERSION}#%{RELEASE}\n'").read()
+    for line in cmd.split("\n"):
+        items = line.split("#")
+        if len(items) == 4:
+            itemlist.append({
+                "installation_date": datetime.datetime.fromtimestamp(float(items[0])).strftime('%Y-%m-%d %H:%M:%S'),
+                "name": items[1],
+                "ver": items[2],
+                "rel": items[3]
+            })
+    return itemlist
+
+
+# No more used cause need RPM modules
 def get_packages():
+    try:
+        import rpm
+    except:
+        module.fail_json(msg="Module rpm is not present")
+        sys.exit(1)
+
     itemlist = []
     ts = rpm.TransactionSet()
     pkgs = ts.dbMatch()
@@ -208,7 +238,7 @@ def main():
         if module.params["sysctl"]:
             assessment["sysctl"] = get_sysctl()
         if module.params['packages']:
-            assessment["packages"] = get_packages()
+            assessment["packages"] = get_rpm_nodep()
         if module.params['procs']:
             assessment["procs"] = get_procs()
         if module.params['fstab']:
@@ -221,8 +251,8 @@ def main():
             assessment["dns"] = get_dns()
         if module.params['repos']:
             assessment["repos"] = get_repos()
-        module.exit_json(changed=True, msg="Assessment completed. Result available under 'assessment'",
-            ansible_facts=dict(assessment=assessment))
+        module.exit_json(changed=False, msg="Assessment completed. Result available under 'assessment'",
+                         ansible_facts=dict(assessment=assessment))
     except Exception, ex:
         module.fail_json(msg="Error occurred: %s" % ex)
 
