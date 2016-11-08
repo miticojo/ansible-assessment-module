@@ -40,7 +40,7 @@
     with_items: "{{assessment.limits}}"
 
   - name: create sysctl tuning on target
-    lineinfile: dest=/etc/sysctl.conf line="{{item}}" state=present
+    sysctl: name="{{item.name}}" value="{{item.value}}" state=present
     with_items: "{{assessment.sysctl}}"
     register: sysctl
 

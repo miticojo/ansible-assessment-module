@@ -13,6 +13,7 @@ credentials:
   password: $6$er4nAhAL$K5hPjUftMPoEL5p3zd1oBpBT/f.hT3EqJ7y8tAhNCwPFRmAE5d3wA5SIpampY4pfkocatpMTyuERXpU0SShs8/,
   username: hacluster, warn_age: ''}
 crontab: []
+dns: [nameserver 192.168.124.1]
 fstab: [/dev/mapper/VolGroup-lv_root /                       ext4    defaults        1
     1, UUID=14407866-afcc-4106-a8a5-ae3b9e040707 /boot                   ext4    defaults        1
     2, /dev/mapper/VolGroup-lv_swap swap                    swap    defaults        0
@@ -51,6 +52,11 @@ groups:
   group_name: haclient
   userlist: ['']
 limits: [ftp             hard    nproc           0]
+ntp: [driftfile /var/lib/ntp/drift, restrict default kod nomodify notrap nopeer noquery,
+  restrict -6 default kod nomodify notrap nopeer noquery, 'restrict 127.0.0.1 ', 'restrict
+    -6 ::1', server 0.rhel.pool.ntp.org iburst, server 1.rhel.pool.ntp.org iburst,
+  server 2.rhel.pool.ntp.org iburst, server 3.rhel.pool.ntp.org iburst, includefile
+    /etc/ntp/crypto/pw, keys /etc/ntp/keys]
 packages:
 - {name: gfs2-utils, rel: 78.el6, ver: 3.0.12.1}
 - {name: usermode, rel: 3.el6, ver: '1.102'}
@@ -825,13 +831,1302 @@ procs: [/sbin/init, "/sbin/udevd\0-d", "/sbin/udevd\0-d", /sbin/dmeventd, "/sbin
     -S\0-p\0/var/run/certmonger.pid", "/sbin/udevd\0-d", "corosync\0-f", fenced, dlm_controld,
   gfs_controld, pacemakerd, /usr/libexec/pacemaker/cib, /usr/libexec/pacemaker/stonithd,
   /usr/libexec/pacemaker/lrmd, /usr/libexec/pacemaker/attrd, /usr/libexec/pacemaker/pengine,
-  /usr/libexec/pacemaker/crmd, login -- root, "/sbin/mingetty\0/dev/tty2", "/sbin/mingetty\0\
-    /dev/tty3", "/sbin/mingetty\0/dev/tty4", "/sbin/mingetty\0/dev/tty5", "/sbin/mingetty\0\
-    /dev/tty6", 'sshd: root@pts/0', "/bin/sh\0-c\0/usr/bin/python /root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/assessment.py;\
-    \ rm -rf \"/root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/\" > /dev/null\
-    \ 2>&1 && sleep 0", "/usr/bin/python\0/root/.ansible/tmp/ansible-tmp-1478533253.07-87675944313085/assessment.py",
-  "/usr/bin/python\0/tmp/ansible_QrzqWI/ansible_module_assessment.py", /usr/libexec/postfix/master,
-  "qmgr\0-l\0-t\0fifo\0-u", "/usr/sbin/console-kit-daemon\0--no-daemon", -bash]
+  /usr/libexec/pacemaker/crmd, "/sbin/mingetty\0/dev/tty1", "/sbin/mingetty\0/dev/tty2",
+  "/sbin/mingetty\0/dev/tty3", "/sbin/mingetty\0/dev/tty4", "/sbin/mingetty\0/dev/tty5",
+  "/sbin/mingetty\0/dev/tty6", /usr/libexec/postfix/master, "pickup\0-l\0-t\0fifo\0\
+    -u", "qmgr\0-l\0-t\0fifo\0-u", "/usr/sbin/anacron\0-s", 'sshd: root@pts/0', "/bin/sh\0\
+    -c\0/usr/bin/python /root/.ansible/tmp/ansible-tmp-1478593074.67-248491946688382/assessment.py;\
+    \ rm -rf \"/root/.ansible/tmp/ansible-tmp-1478593074.67-248491946688382/\" > /dev/null\
+    \ 2>&1 && sleep 0", "/usr/bin/python\0/root/.ansible/tmp/ansible-tmp-1478593074.67-248491946688382/assessment.py",
+  "/usr/bin/python\0/tmp/ansible_Rjajek/ansible_module_assessment.py"]
+repos:
+- rhel-source: {__name__: rhel-source, baseurl: 'ftp://ftp.redhat.com/pub/redhat/linux/enterprise/$releasever/en/os/SRPMS/',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    name: Red Hat Enterprise Linux $releasever - $basearch - Source}
+  rhel-source-beta: {__name__: rhel-source-beta, baseurl: 'ftp://ftp.redhat.com/pub/redhat/linux/beta/$releasever/en/os/SRPMS/',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    name: Red Hat Enterprise Linux $releasever Beta - $basearch - Source}
+- rhel-6-server-beta-debug-rpms: {__name__: rhel-6-server-beta-debug-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server Beta (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-beta-rpms: {__name__: rhel-6-server-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server Beta (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-beta-source-rpms: {__name__: rhel-6-server-beta-source-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server Beta (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-cf-tools-1-debug-rpms: {__name__: rhel-6-server-cf-tools-1-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/cf-tools/1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat CloudForms Tools for RHEL 6 (Debug RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-cf-tools-1-rpms: {__name__: rhel-6-server-cf-tools-1-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/cf-tools/1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat CloudForms Tools for RHEL 6 (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-cf-tools-1-source-rpms: {__name__: rhel-6-server-cf-tools-1-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/cf-tools/1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat CloudForms Tools for RHEL 6 (Source RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-debug-rpms: {__name__: rhel-6-server-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server (Debug RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-debug-rpms: {__name__: rhel-6-server-eus-debug-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-optional-debug-rpms: {__name__: rhel-6-server-eus-optional-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/optional/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Optional (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-optional-rpms: {__name__: rhel-6-server-eus-optional-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/optional/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Optional (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-optional-source-rpms: {__name__: rhel-6-server-eus-optional-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/optional/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Optional (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rh-common-debug-rpms: {__name__: rhel-6-server-eus-rh-common-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rh-common/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - RH Common (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rh-common-rpms: {__name__: rhel-6-server-eus-rh-common-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rh-common/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - RH Common (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rh-common-source-rpms: {__name__: rhel-6-server-eus-rh-common-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rh-common/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - RH Common (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rhn-tools-debug-rpms: {__name__: rhel-6-server-eus-rhn-tools-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhn-tools/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      - Extended Update Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rhn-tools-rpms: {__name__: rhel-6-server-eus-rhn-tools-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhn-tools/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      - Extended Update Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rhn-tools-source-rpms: {__name__: rhel-6-server-eus-rhn-tools-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhn-tools/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      - Extended Update Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-rpms: {__name__: rhel-6-server-eus-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.1-debug-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.1-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server
+      - EUS) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.1-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.1-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server
+      - EUS) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.1-source-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.1-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server
+      - EUS) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.2-debug-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.2-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.2/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server
+      - EUS) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.2-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.2-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.2/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server
+      - EUS) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-satellite-tools-6.2-source-rpms: {__name__: rhel-6-server-eus-satellite-tools-6.2-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/sat-tools/6.2/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server
+      - EUS) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-source-rpms: {__name__: rhel-6-server-eus-source-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-supplementary-debuginfo: {__name__: rhel-6-server-eus-supplementary-debuginfo,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/supplementary/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Supplementary (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-supplementary-rpms: {__name__: rhel-6-server-eus-supplementary-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/supplementary/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Supplementary (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-supplementary-source-rpms: {__name__: rhel-6-server-eus-supplementary-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/supplementary/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Supplementary (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-thirdparty-oracle-java-rpms: {__name__: rhel-6-server-eus-thirdparty-oracle-java-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/oracle-java/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Oracle Java (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-eus-thirdparty-oracle-java-source-rpms: {__name__: rhel-6-server-eus-thirdparty-oracle-java-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/oracle-java/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extended Update
+      Support - Oracle Java (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-extras-debuginfo: {__name__: rhel-6-server-extras-debuginfo, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/extras/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extras (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-extras-rpms: {__name__: rhel-6-server-extras-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/extras/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extras (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-extras-source-rpms: {__name__: rhel-6-server-extras-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/extras/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Extras (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-fastrack-debug-rpms: {__name__: rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Fastrack (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-fastrack-rpms: {__name__: rhel-6-server-fastrack-rpms, baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Fastrack (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-fastrack-source-rpms: {__name__: rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Fastrack (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-optional-beta-debug-rpms: {__name__: rhel-6-server-optional-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/optional/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Beta
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-optional-beta-rpms: {__name__: rhel-6-server-optional-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/optional/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Beta
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-optional-beta-source-rpms: {__name__: rhel-6-server-optional-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/optional/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Beta
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-optional-debug-rpms: {__name__: rhel-6-server-optional-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/optional/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-optional-fastrack-debug-rpms: {__name__: rhel-6-server-optional-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/optional/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Fastrack
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-optional-fastrack-rpms: {__name__: rhel-6-server-optional-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/optional/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Fastrack
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-optional-fastrack-source-rpms: {__name__: rhel-6-server-optional-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/optional/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional Fastrack
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-optional-rpms: {__name__: rhel-6-server-optional-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/optional/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-optional-source-rpms: {__name__: rhel-6-server-optional-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/optional/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Optional (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-realtime-debug-rpms: {__name__: rhel-6-server-realtime-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/mrg-r/2/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: MRG Realtime (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-realtime-rpms: {__name__: rhel-6-server-realtime-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/mrg-r/2/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: MRG Realtime (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-realtime-source-rpms: {__name__: rhel-6-server-realtime-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/mrg-r/2/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: MRG Realtime (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-rh-common-beta-debug-rpms: {__name__: rhel-6-server-rh-common-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/rh-common/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-rh-common-beta-rpms: {__name__: rhel-6-server-rh-common-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/rh-common/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-rh-common-beta-source-rpms: {__name__: rhel-6-server-rh-common-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/rh-common/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-rh-common-debug-rpms: {__name__: rhel-6-server-rh-common-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rh-common/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rh-common-rpms: {__name__: rhel-6-server-rh-common-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rh-common/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rh-common-source-rpms: {__name__: rhel-6-server-rh-common-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rh-common/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - RH Common
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-beta-debug-rpms: {__name__: rhel-6-server-rhev-agent-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhev-agent/3/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-beta-rpms: {__name__: rhel-6-server-rhev-agent-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhev-agent/3/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-beta-source-rpms: {__name__: rhel-6-server-rhev-agent-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhev-agent/3/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-debug-rpms: {__name__: rhel-6-server-rhev-agent-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhev-agent/3/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-rpms: {__name__: rhel-6-server-rhev-agent-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhev-agent/3/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhev-agent-source-rpms: {__name__: rhel-6-server-rhev-agent-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhev-agent/3/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Virtualization Agents for RHEL
+      6 Server (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-beta-debug-rpms: {__name__: rhel-6-server-rhn-tools-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhn-tools/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-beta-rpms: {__name__: rhel-6-server-rhn-tools-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhn-tools/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-beta-source-rpms: {__name__: rhel-6-server-rhn-tools-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhn-tools/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-debug-rpms: {__name__: rhel-6-server-rhn-tools-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhn-tools/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-rpms: {__name__: rhel-6-server-rhn-tools-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhn-tools/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhn-tools-source-rpms: {__name__: rhel-6-server-rhn-tools-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhn-tools/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: RHN Tools for Red Hat Enterprise Linux 6 Server
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhs-client-1-debug-rpms: {__name__: rhel-6-server-rhs-client-1-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhs-client/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Storage Native Client for RHEL 6 (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhs-client-1-rpms: {__name__: rhel-6-server-rhs-client-1-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhs-client/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Storage Native Client for RHEL 6 (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhs-client-1-source-rpms: {__name__: rhel-6-server-rhs-client-1-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhs-client/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Storage Native Client for RHEL 6 (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-beta-debug-rpms: {__name__: rhel-6-server-rhv-4-agent-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhv-agent/4/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-beta-rpms: {__name__: rhel-6-server-rhv-4-agent-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhv-agent/4/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-beta-source-rpms: {__name__: rhel-6-server-rhv-4-agent-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhv-agent/4/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-debug-rpms: {__name__: rhel-6-server-rhv-4-agent-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhv-agent/4/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-rpms: {__name__: rhel-6-server-rhv-4-agent-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhv-agent/4/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rhv-4-agent-source-rpms: {__name__: rhel-6-server-rhv-4-agent-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhv-agent/4/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virtualization 4 Agents for RHEL 6 Server
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-rpms: {__name__: rhel-6-server-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-beta-debug-rpms: {__name__: rhel-6-server-sam-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/subscription-asset-manager/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-beta-rpms: {__name__: rhel-6-server-sam-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/subscription-asset-manager/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-beta-source-rpms: {__name__: rhel-6-server-sam-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/subscription-asset-manager/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-debug-rpms: {__name__: rhel-6-server-sam-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/subscription-asset-manager/1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-rpms: {__name__: rhel-6-server-sam-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/subscription-asset-manager/1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-sam-source-rpms: {__name__: rhel-6-server-sam-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/subscription-asset-manager/1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Subscription Asset Manager (for RHEL 6
+      Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-satellite-tools-6-beta-debug-rpms: {__name__: rhel-6-server-satellite-tools-6-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/sat-tools/6/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6 Beta (for RHEL 6 Server)
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6-beta-rpms: {__name__: rhel-6-server-satellite-tools-6-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/sat-tools/6/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6 Beta (for RHEL 6 Server)
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6-beta-source-rpms: {__name__: rhel-6-server-satellite-tools-6-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/6Server/$basearch/sat-tools/6/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6 Beta (for RHEL 6 Server)
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.1-debug-rpms: {__name__: rhel-6-server-satellite-tools-6.1-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server)
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.1-rpms: {__name__: rhel-6-server-satellite-tools-6.1-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server)
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.1-source-rpms: {__name__: rhel-6-server-satellite-tools-6.1-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.1 (for RHEL 6 Server)
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.2-debug-rpms: {__name__: rhel-6-server-satellite-tools-6.2-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.2/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server)
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.2-rpms: {__name__: rhel-6-server-satellite-tools-6.2-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.2/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server)
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-satellite-tools-6.2-source-rpms: {__name__: rhel-6-server-satellite-tools-6.2-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/6Server/$basearch/sat-tools/6.2/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Satellite Tools 6.2 (for RHEL 6 Server)
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-6-server-source-rpms: {__name__: rhel-6-server-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server (Source RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-beta-debuginfo: {__name__: rhel-6-server-supplementary-beta-debuginfo,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/supplementary/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-beta-rpms: {__name__: rhel-6-server-supplementary-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/supplementary/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-beta-source-rpms: {__name__: rhel-6-server-supplementary-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/supplementary/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-debuginfo: {__name__: rhel-6-server-supplementary-debuginfo,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/supplementary/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-rpms: {__name__: rhel-6-server-supplementary-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/supplementary/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-supplementary-source-rpms: {__name__: rhel-6-server-supplementary-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/supplementary/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Supplementary
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-thirdparty-oracle-java-beta-rpms: {__name__: rhel-6-server-thirdparty-oracle-java-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/oracle-java/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Oracle Java
+      Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-thirdparty-oracle-java-beta-source-rpms: {__name__: rhel-6-server-thirdparty-oracle-java-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/oracle-java/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Oracle Java
+      Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-thirdparty-oracle-java-rpms: {__name__: rhel-6-server-thirdparty-oracle-java-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/oracle-java/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Oracle Java
+      (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-thirdparty-oracle-java-source-rpms: {__name__: rhel-6-server-thirdparty-oracle-java-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/oracle-java/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux 6 Server - Oracle Java
+      (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-v2vwin-1-debug-rpms: {__name__: rhel-6-server-v2vwin-1-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/v2vwin/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virt V2V Tool for RHEL 6 (Debug RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-6-server-v2vwin-1-rpms: {__name__: rhel-6-server-v2vwin-1-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/v2vwin/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virt V2V Tool for RHEL 6 (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-6-server-v2vwin-1-source-rpms: {__name__: rhel-6-server-v2vwin-1-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/v2vwin/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Virt V2V Tool for RHEL 6 (Source RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-atomic-host-beta-debug-rpms: {__name__: rhel-atomic-host-beta-debug-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/atomic/7/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host Beta (Debug
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-atomic-host-beta-rpms: {__name__: rhel-atomic-host-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/atomic/7/$basearch/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host Beta (RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-atomic-host-beta-source-rpms: {__name__: rhel-atomic-host-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/atomic/7/x86_64/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host Beta (Source
+      RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1'}
+  rhel-atomic-host-debug-rpms: {__name__: rhel-atomic-host-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/atomic/7/7Server/$basearch/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host (Debug RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-atomic-host-rpms: {__name__: rhel-atomic-host-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/atomic/7/7Server/$basearch/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-atomic-host-source-rpms: {__name__: rhel-atomic-host-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/atomic/7/7Server/$basearch/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Atomic Host (Source RPMs),
+    sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-ha-for-rhel-6-server-beta-debug-rpms: {__name__: rhel-ha-for-rhel-6-server-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/highavailability/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-beta-rpms: {__name__: rhel-ha-for-rhel-6-server-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/highavailability/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-beta-source-rpms: {__name__: rhel-ha-for-rhel-6-server-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/highavailability/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-debug-rpms: {__name__: rhel-ha-for-rhel-6-server-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/highavailability/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-eus-debug-rpms: {__name__: rhel-ha-for-rhel-6-server-eus-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/highavailability/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Extended Update Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-eus-rpms: {__name__: rhel-ha-for-rhel-6-server-eus-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/highavailability/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Extended Update Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-eus-source-rpms: {__name__: rhel-ha-for-rhel-6-server-eus-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/highavailability/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Extended Update Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-fastrack-debug-rpms: {__name__: rhel-ha-for-rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/highavailability/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Fastrack (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-ha-for-rhel-6-server-fastrack-rpms: {__name__: rhel-ha-for-rhel-6-server-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/highavailability/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Fastrack (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-ha-for-rhel-6-server-fastrack-source-rpms: {__name__: rhel-ha-for-rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/highavailability/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) - Fastrack (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-ha-for-rhel-6-server-rpms: {__name__: rhel-ha-for-rhel-6-server-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/highavailability/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-ha-for-rhel-6-server-source-rpms: {__name__: rhel-ha-for-rhel-6-server-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/highavailability/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Availability (for
+      RHEL 6 Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-beta-debug-rpms: {__name__: rhel-hpn-for-rhel-6-server-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/hpn/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-beta-rpms: {__name__: rhel-hpn-for-rhel-6-server-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/hpn/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-beta-source-rpms: {__name__: rhel-hpn-for-rhel-6-server-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/hpn/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-debug-rpms: {__name__: rhel-hpn-for-rhel-6-server-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/hpn/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-fastrack-debug-rpms: {__name__: rhel-hpn-for-rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/hpn/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) - Fastrack (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-hpn-for-rhel-6-server-fastrack-rpms: {__name__: rhel-hpn-for-rhel-6-server-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/hpn/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) - Fastrack (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-hpn-for-rhel-6-server-fastrack-source-rpms: {__name__: rhel-hpn-for-rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/hpn/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) - Fastrack (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-hpn-for-rhel-6-server-rpms: {__name__: rhel-hpn-for-rhel-6-server-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/hpn/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-hpn-for-rhel-6-server-source-rpms: {__name__: rhel-hpn-for-rhel-6-server-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/hpn/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux High Performance Networking
+      (for RHEL 6 Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-beta-debug-rpms: {__name__: rhel-lb-for-rhel-6-server-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/loadbalancer/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-beta-rpms: {__name__: rhel-lb-for-rhel-6-server-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/loadbalancer/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-beta-source-rpms: {__name__: rhel-lb-for-rhel-6-server-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/loadbalancer/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-debug-rpms: {__name__: rhel-lb-for-rhel-6-server-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/loadbalancer/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-eus-debug-rpms: {__name__: rhel-lb-for-rhel-6-server-eus-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/loadbalancer/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Extended Update Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-eus-rpms: {__name__: rhel-lb-for-rhel-6-server-eus-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/loadbalancer/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Extended Update Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-eus-source-rpms: {__name__: rhel-lb-for-rhel-6-server-eus-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/loadbalancer/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Extended Update Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-fastrack-debug-rpms: {__name__: rhel-lb-for-rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/loadbalancer/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Fastrack (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-lb-for-rhel-6-server-fastrack-rpms: {__name__: rhel-lb-for-rhel-6-server-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/loadbalancer/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Fastrack (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-lb-for-rhel-6-server-fastrack-source-rpms: {__name__: rhel-lb-for-rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/loadbalancer/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) - Fastrack (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-lb-for-rhel-6-server-rpms: {__name__: rhel-lb-for-rhel-6-server-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/loadbalancer/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-lb-for-rhel-6-server-source-rpms: {__name__: rhel-lb-for-rhel-6-server-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/loadbalancer/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Load Balancer (for RHEL
+      6 Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-beta-debug-rpms: {__name__: rhel-rs-for-rhel-6-server-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/resilientstorage/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-beta-rpms: {__name__: rhel-rs-for-rhel-6-server-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/resilientstorage/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-beta-source-rpms: {__name__: rhel-rs-for-rhel-6-server-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/resilientstorage/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-debug-rpms: {__name__: rhel-rs-for-rhel-6-server-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/resilientstorage/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-eus-debug-rpms: {__name__: rhel-rs-for-rhel-6-server-eus-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/resilientstorage/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Extended Update Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-eus-rpms: {__name__: rhel-rs-for-rhel-6-server-eus-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/resilientstorage/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Extended Update Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-eus-source-rpms: {__name__: rhel-rs-for-rhel-6-server-eus-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/resilientstorage/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Extended Update Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-fastrack-debug-rpms: {__name__: rhel-rs-for-rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/resilientstorage/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Fastrack (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-rs-for-rhel-6-server-fastrack-rpms: {__name__: rhel-rs-for-rhel-6-server-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/resilientstorage/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Fastrack (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-rs-for-rhel-6-server-fastrack-source-rpms: {__name__: rhel-rs-for-rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/resilientstorage/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) - Fastrack (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-rs-for-rhel-6-server-rpms: {__name__: rhel-rs-for-rhel-6-server-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/resilientstorage/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-rs-for-rhel-6-server-source-rpms: {__name__: rhel-rs-for-rhel-6-server-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/resilientstorage/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Resilient Storage (for
+      RHEL 6 Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-beta-debug-rpms: {__name__: rhel-scalefs-for-rhel-6-server-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/scalablefilesystem/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) Beta (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-beta-rpms: {__name__: rhel-scalefs-for-rhel-6-server-beta-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/scalablefilesystem/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) Beta (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-beta-source-rpms: {__name__: rhel-scalefs-for-rhel-6-server-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/scalablefilesystem/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) Beta (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-debug-rpms: {__name__: rhel-scalefs-for-rhel-6-server-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/scalablefilesystem/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-fastrack-debug-rpms: {__name__: rhel-scalefs-for-rhel-6-server-fastrack-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/scalablefilesystem/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Fastrack (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-scalefs-for-rhel-6-server-fastrack-rpms: {__name__: rhel-scalefs-for-rhel-6-server-fastrack-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/scalablefilesystem/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Fastrack (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-scalefs-for-rhel-6-server-fastrack-source-rpms: {__name__: rhel-scalefs-for-rhel-6-server-fastrack-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/fastrack/rhel/server/6/$basearch/scalablefilesystem/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Fastrack (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: basearch}
+  rhel-scalefs-for-rhel-6-server-rpms: {__name__: rhel-scalefs-for-rhel-6-server-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/scalablefilesystem/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-scalefs-for-rhel-6-server-source-rpms: {__name__: rhel-scalefs-for-rhel-6-server-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/scalablefilesystem/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-beta-debug-rpms: {__name__: rhel-server-dts-6-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset Beta Debug RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-beta-rpms: {__name__: rhel-server-dts-6-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset Beta RPMs for Red Hat
+      Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-beta-source-rpms: {__name__: rhel-server-dts-6-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset Beta Source RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-debug-rpms: {__name__: rhel-server-dts-6-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset Debug RPMs for Red Hat
+      Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-rhb-debug-rpms: {__name__: rhel-server-dts-6-rhb-debug-rpms, baseurl: 'https://cdn.redhat.com/content/rhb/rhel/server/6/6Server/$basearch/devtoolset/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset RHB Debug RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-server-dts-6-rhb-rpms: {__name__: rhel-server-dts-6-rhb-rpms, baseurl: 'https://cdn.redhat.com/content/rhb/rhel/server/6/6Server/$basearch/devtoolset/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset RHB RPMs for Red Hat
+      Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-server-dts-6-rhb-source-rpms: {__name__: rhel-server-dts-6-rhb-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/rhb/rhel/server/6/6Server/$basearch/devtoolset/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset RHB Source RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: basearch}
+  rhel-server-dts-6-rpms: {__name__: rhel-server-dts-6-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset RPMs for Red Hat Enterprise
+      Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts-6-source-rpms: {__name__: rhel-server-dts-6-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset Source RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-beta-debug-rpms: {__name__: rhel-server-dts2-6-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/2/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 Beta Debug RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-beta-rpms: {__name__: rhel-server-dts2-6-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/2/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 Beta RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-beta-source-rpms: {__name__: rhel-server-dts2-6-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/devtoolset/2/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 Beta Source RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-debug-rpms: {__name__: rhel-server-dts2-6-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/2/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 Debug RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-rpms: {__name__: rhel-server-dts2-6-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/2/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 RPMs for Red Hat Enterprise
+      Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-dts2-6-source-rpms: {__name__: rhel-server-dts2-6-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/devtoolset/2/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Developer Toolset 2 Source RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-beta-debug-rpms: {__name__: rhel-server-rhscl-6-beta-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhscl/1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Software Collections Beta Debug RPMs for
+      Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-beta-rpms: {__name__: rhel-server-rhscl-6-beta-rpms, baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhscl/1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Software Collections Beta RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-beta-source-rpms: {__name__: rhel-server-rhscl-6-beta-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/beta/rhel/server/6/$releasever/$basearch/rhscl/1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta',
+    metadata_expire: '86400', name: Red Hat Software Collections Beta Source RPMs
+      for Red Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-debug-rpms: {__name__: rhel-server-rhscl-6-debug-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhscl/1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections Debug RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-eus-debug-rpms: {__name__: rhel-server-rhscl-6-eus-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhscl/1/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections Debug RPMs for Red
+      Hat Enterprise Linux 6 RHEL 6 Server EUS, sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-eus-rpms: {__name__: rhel-server-rhscl-6-eus-rpms, baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhscl/1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections RPMs for Red Hat
+      Enterprise Linux 6 RHEL 6 Server EUS, sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-eus-source-rpms: {__name__: rhel-server-rhscl-6-eus-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/rhscl/1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections Source RPMs for Red
+      Hat Enterprise Linux 6 RHEL 6 Server EUS, sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-rpms: {__name__: rhel-server-rhscl-6-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhscl/1/os',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections RPMs for Red Hat
+      Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-server-rhscl-6-source-rpms: {__name__: rhel-server-rhscl-6-source-rpms, baseurl: 'https://cdn.redhat.com/content/dist/rhel/server/6/$releasever/$basearch/rhscl/1/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Software Collections Source RPMs for Red
+      Hat Enterprise Linux 6 Server, sslcacert: /etc/rhsm/ca/redhat-uep.pem, sslclientcert: /etc/pki/entitlement/4815934632012964292.pem,
+    sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem, sslverify: '1',
+    ui_repoid_vars: releasever basearch}
+  rhel-sfs-for-rhel-6-server-eus-debug-rpms: {__name__: rhel-sfs-for-rhel-6-server-eus-debug-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/scalablefilesystem/debug',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Extended Update Support (Debug RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-sfs-for-rhel-6-server-eus-rpms: {__name__: rhel-sfs-for-rhel-6-server-eus-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/scalablefilesystem/os',
+    enabled: '1', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Extended Update Support (RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
+  rhel-sfs-for-rhel-6-server-eus-source-rpms: {__name__: rhel-sfs-for-rhel-6-server-eus-source-rpms,
+    baseurl: 'https://cdn.redhat.com/content/eus/rhel/server/6/$releasever/$basearch/scalablefilesystem/source/SRPMS',
+    enabled: '0', gpgcheck: '1', gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release',
+    metadata_expire: '86400', name: Red Hat Enterprise Linux Scalable File System
+      (for RHEL 6 Server) - Extended Update Support (Source RPMs), sslcacert: /etc/rhsm/ca/redhat-uep.pem,
+    sslclientcert: /etc/pki/entitlement/4815934632012964292.pem, sslclientkey: /etc/pki/entitlement/4815934632012964292-key.pem,
+    sslverify: '1', ui_repoid_vars: releasever basearch}
 sudoers: [Defaults   !visiblepw, Defaults    always_set_home, Defaults    env_reset,
   Defaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS",
   Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
@@ -839,10 +2134,17 @@ sudoers: [Defaults   !visiblepw, Defaults    always_set_home, Defaults    env_re
   Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
   Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
   'Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin', "root\tALL=(ALL) \tALL"]
-sysctl: [net.ipv4.ip_forward = 0, net.ipv4.conf.default.rp_filter = 1, net.ipv4.conf.default.accept_source_route
-    = 0, kernel.sysrq = 0, kernel.core_uses_pid = 1, net.ipv4.tcp_syncookies = 1,
-  kernel.msgmnb = 65536, kernel.msgmax = 65536, kernel.shmmax = 68719476736, kernel.shmall
-    = 4294967296]
+sysctl:
+- {name: net.ipv4.ip_forward, value: '0'}
+- {name: net.ipv4.conf.default.rp_filter, value: '1'}
+- {name: net.ipv4.conf.default.accept_source_route, value: '0'}
+- {name: kernel.sysrq, value: '0'}
+- {name: kernel.core_uses_pid, value: '1'}
+- {name: net.ipv4.tcp_syncookies, value: '1'}
+- {name: kernel.msgmnb, value: '65536'}
+- {name: kernel.msgmax, value: '65536'}
+- {name: kernel.shmmax, value: '68719476736'}
+- {name: kernel.shmall, value: '4294967296'}
 users:
 - description: null
   gid: 173

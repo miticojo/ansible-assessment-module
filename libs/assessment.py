@@ -12,9 +12,17 @@ description:
     - Get system info
 options:
     users:
-        required: true
+        default: true
         description:
             - Execute or not users inventory
+    groups:
+        default: true
+        description:
+            - Execute or not groups inventory
+    creds:
+        default: true
+        description:
+            - Execute or not user credentials inventory
 '''
 
 EXAMPLES = '''
@@ -25,6 +33,7 @@ EXAMPLES = '''
 import rpm
 import os
 import re
+import ConfigParser
 
 from ansible.module_utils.basic import *
 from ansible.module_utils.facts import *
@@ -42,6 +51,9 @@ module = AnsibleModule(
         procs      = dict(default=True, type="bool"),
         fstab      = dict(default=True, type="bool"),
         limits     = dict(default=True, type="bool"),
+        ntp        = dict(default=True, type="bool"),
+        dns        = dict(default=True, type="bool"),
+        repos       = dict(default=True, type="bool")
     ),
     supports_check_mode=False
 )
@@ -49,12 +61,12 @@ module = AnsibleModule(
 def _fixnl(line):
     return  line.replace("\n", "")
 
-def get_uncomment_lines(file):
+def get_uncomment_lines(file, commment_char="#"):
     itemlist = []
     if os.path.exists(file):
         with open(file, 'r') as f:
             for line in iter(f):
-                if re.match("^[^\s#].*$", line, re.MULTILINE):
+                if re.match("^[^\s%s].*$" % commment_char, line, re.MULTILINE):
                     itemlist.append(_fixnl(line))
     return itemlist
 
@@ -113,10 +125,19 @@ def get_sudoers():
     return get_uncomment_lines('/etc/sudoers')
 
 def get_sysctl():
-    return get_uncomment_lines('/etc/sysctl.conf')
+    itemlist = []
+    for line in  get_uncomment_lines('/etc/sysctl.conf'):
+        itemlist.append({"name": line.split("=")[0].strip(), "value": line.split("=")[1].strip()})
+    return itemlist
 
 def get_fstab():
     return get_uncomment_lines('/etc/fstab')
+
+def get_ntp():
+    return get_uncomment_lines('/etc/ntp.conf')
+
+def get_dns():
+    return get_uncomment_lines('/etc/resolv.conf', commment_char=";")
 
 def get_limits():
     return get_uncomment_lines('/etc/security/limits.conf')
@@ -131,6 +152,17 @@ def get_crontab():
             itemlist.append(user)
     return itemlist
 
+def get_repos():
+    itemlist = []
+    for dirpath, dirnames, filenames in os.walk('/etc/yum.repos.d/'):
+        repo = {}
+        for f in filenames:
+            filename, file_extension = os.path.splitext(f)
+            if file_extension == ".repo":
+                config = ConfigParser.ConfigParser()
+                config.read(os.path.join(dirpath, f))
+                itemlist.append(config._sections)
+    return itemlist
 
 def get_packages():
     itemlist = []
@@ -183,6 +215,12 @@ def main():
             assessment["fstab"] = get_fstab()
         if module.params['limits']:
             assessment["limits"] = get_limits()
+        if module.params['ntp']:
+            assessment["ntp"] = get_ntp()
+        if module.params['dns']:
+            assessment["dns"] = get_dns()
+        if module.params['repos']:
+            assessment["repos"] = get_repos()
         module.exit_json(changed=True, msg="Assessment completed. Result available under 'assessment'",
             ansible_facts=dict(assessment=assessment))
     except Exception, ex:
