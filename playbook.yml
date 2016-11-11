@@ -1,15 +1,16 @@
-- hosts: cls-1
+- hosts: source01
+  become: yes
 
   tasks:
   - assessment:
-  #- debug: msg={{assessment}}
-  - local_action: template src=./dumpall.j2 dest=./data/{{ ansible_hostname }}.yml
 
-- hosts: rhel7-1
+  - local_action: template src="templates/dumpall.j2" dest="data/{{ ansible_hostname}}.yml" 
 
+- hosts: target01
+  become: yes
   tasks:
   - name: include variable from source machine
-    local_action: include_vars file=./data/cls-1.yml name=assessment
+    local_action: include_vars file=data/source01.yml name=assessment
 
   - name: create missing group on target
     group: gid="{{item.gid}}" name="{{item.group_name}}" state=present
