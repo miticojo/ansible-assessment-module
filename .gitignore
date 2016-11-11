@@ -1,4 +1,5 @@
 ### Ansible temp file
+./vagrant
 *.retry
 data/*.yml
 # Created by .ignore support plugin (hsz.mobi)
