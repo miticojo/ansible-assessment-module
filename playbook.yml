@@ -4,7 +4,8 @@
   tasks:
   - assessment:
 
-  - local_action: template src="templates/dumpall.j2" dest="data/{{ ansible_hostname}}.yml" 
+  - local_action: template src="templates/dumpall.j2" dest="./data/{{ ansible_hostname}}.yml" 
+    become: no
 
 - hosts: target01
   become: yes

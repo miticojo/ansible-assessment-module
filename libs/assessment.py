@@ -31,7 +31,7 @@ EXAMPLES = '''
 
 import os
 import re
-
+from re import split
 
 from ansible.module_utils.basic import *
 from ansible.module_utils.facts import *
@@ -129,6 +129,8 @@ def get_sysctl():
     return itemlist
 
 def get_fstab():
+    re = "^(?'dev'[^#][\w\S]*)\s*(?'mount'[\w\S]*)\s*(?'fs'[\w]*)\s*(?'opts'[\w\S]*)\s*(?'ord1'[\d]*)\s*(?'ord2'[\d]*)$"
+
     return get_uncomment_lines('/etc/fstab')
 
 def get_ntp():
@@ -174,53 +176,97 @@ def get_rpm_nodep():
     import datetime
 
     itemlist = []
-    cmd = os.popen("rpm -qa --queryformat '%{INSTALLTIME}#%{NAME}#%{VERSION}#%{RELEASE}\n'").read()
+    cmd = os.popen("rpm -qa --queryformat '%{INSTALLTIME}#%{NAME}#%{VERSION}#%{RELEASE}#%{VENDOR}\n'").read()
     for line in cmd.split("\n"):
         items = line.split("#")
         if len(items) == 4:
             itemlist.append({
                 "installation_date": datetime.datetime.fromtimestamp(float(items[0])).strftime('%Y-%m-%d %H:%M:%S'),
+                "installation_timestamp": float(items[0]),
                 "name": items[1],
                 "ver": items[2],
-                "rel": items[3]
+                "rel": items[3],
+                "vendor": items[4]
             })
     return itemlist
 
 
-# No more used cause need RPM modules
-def get_packages():
-    try:
-        import rpm
-    except:
-        module.fail_json(msg="Module rpm is not present")
-        sys.exit(1)
-
-    itemlist = []
-    ts = rpm.TransactionSet()
-    pkgs = ts.dbMatch()
-
-    for p in pkgs:
-        itemlist.append({
-            "name": p["name"],
-            "ver": p["version"],
-            "rel": p["release"]
-        })
-    return itemlist
+def is_exe(fpath):
+    return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
 
-def get_procs():
-    itemlist = []
+def get_exe(args):
+    for f in args:
+        if is_exe(f):
+            return f
+    return None
 
-    pids = [pid for pid in os.listdir('/proc') if pid.isdigit() and pid > 2]
 
-    for pid in pids:
-        try:
-            cmd = open(os.path.join('/proc', pid, 'cmdline'), 'rb').read().rstrip(' \t\r\n\0')
-            if len(cmd) > 0:
-                itemlist.append(str(cmd))
-        except IOError:  # proc has already terminated
-            continue
-    return itemlist
+def which(filename):
+    for path in os.environ["PATH"].split(os.pathsep):
+        if os.path.exists(os.path.join(path, filename)):
+            return os.path.join(path, filename)
+    return None
+
+
+def get_file_pkg(filename, args=[]):
+    from subprocess import Popen, PIPE
+    proc_list = []
+    if filter(lambda inter: True if inter in filename else False, ['python', 'ruby', 'bash', 'sh']) \
+            and len(args) > 0:
+        filename = get_exe(args)
+    if not os.path.exists(filename):
+        filename = which(filename)
+    if not filename:
+        return None
+
+    sub_proc = Popen(
+        ["rpm -qf " + filename + " --queryformat '%{INSTALLTIME}#%{NAME}#%{VERSION}#%{RELEASE}#%{VENDOR}\n'"],
+        shell=True, stdout=PIPE)
+    items = sub_proc.stdout.readline().strip().split('#')
+    sub_proc.wait()
+    if sub_proc.returncode == 0:
+        return {
+            "installation_date": datetime.datetime.fromtimestamp(float(items[0])).strftime('%Y-%m-%d %H:%M:%S'),
+            "installation_timestamp": float(items[0]),
+            "name": items[1],
+            "ver": items[2],
+            "rel": items[3],
+            "vendor": items[4]
+        }
+    else:
+        return None
+
+
+def get_proc_list():
+    ''' Retrieves a list [] of Proc objects representing the active
+    process list list '''
+    from subprocess import Popen, PIPE
+    proc_list = []
+    sub_proc = Popen(['ps', 'aux'], shell=False, stdout=PIPE)
+    # Discard the first line (ps aux header)
+    sub_proc.stdout.readline()
+    for line in sub_proc.stdout:
+        # The separator for splitting is 'variable number of spaces'
+        proc_info = split(" *", line.strip())
+        if int(proc_info[1]) > 2 and 'ansible' not in line \
+                and not proc_info[10].startswith('[', 0, 1):
+            proc_list.append({
+                "user": proc_info[0],
+                "pid": int(proc_info[1]),
+                "cpu": float(proc_info[2]),
+                "mem": float(proc_info[3]),
+                "vsz": int(proc_info[4]),
+                "rss": int(proc_info[5]),
+                "tty": proc_info[6] if proc_info[6] != '?' else None,
+                "state": proc_info[7],
+                "start": os.stat("/proc/%s" % int(proc_info[1])).st_mtime,
+                "time": proc_info[9],
+                "cmd": proc_info[10],
+                "args": proc_info[11:],
+                "pkg": get_file_pkg(proc_info[10].strip(), proc_info[11:])
+            })
+    return proc_list
 
 def main():
     try:
@@ -240,7 +286,7 @@ def main():
         if module.params['packages']:
             assessment["packages"] = get_rpm_nodep()
         if module.params['procs']:
-            assessment["procs"] = get_procs()
+            assessment["procs"] = get_proc_list()
         if module.params['fstab']:
             assessment["fstab"] = get_fstab()
         if module.params['limits']:

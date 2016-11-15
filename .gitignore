@@ -1,5 +1,6 @@
 ### Ansible temp file
-./vagrant
+.idea/
+.vagrant/
 *.retry
 data/*.yml
 # Created by .ignore support plugin (hsz.mobi)
@@ -151,3 +152,5 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
+.idea/
+.vagrant/
